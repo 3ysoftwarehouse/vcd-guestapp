@@ -7,6 +7,7 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
@@ -16,7 +17,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import br.com.a3ysoftwarehouse.vcdguest.R;
-import br.com.a3ysoftwarehouse.vcdguest.observer.NfcTagIdObserver;
+import br.com.a3ysoftwarehouse.vcdguest.observer.NfcIdObserver;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BaseNfcActivity;
 import br.com.a3ysoftwarehouse.vcdguest.ui.listCall.ListCallFragment;
 import br.com.a3ysoftwarehouse.vcdguest.ui.listPassenger.ListPassengersFragment;
@@ -37,8 +38,13 @@ public class MainActivity extends BaseNfcActivity<IMainPresenter> implements IMa
     @BindView(R.id.main_tb) Toolbar mMainTb;
     private Drawer mDrawer;
 
+    // Fragments
+    private ListPassengersFragment mListPassengersFragment;
+    private MakeCallFragment mMakeCallFragment;
+    private ListCallFragment mListCallFragment;
+
     // TagObserver
-    private NfcTagIdObserver mNfcTagIdObserver;
+    private NfcIdObserver mNfcIdObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class MainActivity extends BaseNfcActivity<IMainPresenter> implements IMa
         setPresenter(new MainPresenter(this));
 
         // TagObserver
-        mNfcTagIdObserver = NfcTagIdObserver.getInstance();
+        mNfcIdObserver = NfcIdObserver.getInstance();
 
         // Set this fragment as default.
         FragmentManager fragmentManager = getFragmentManager();
@@ -86,21 +92,32 @@ public class MainActivity extends BaseNfcActivity<IMainPresenter> implements IMa
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         switch ((int) drawerItem.getIdentifier()) {
             case LIST_PASSENGERS_ITEM:
-                fragmentTransaction.replace(R.id.fragment_container, new ListPassengersFragment());
+                fragmentTransaction.replace(R.id.fragment_container,
+                        (mListPassengersFragment != null) ?
+                                mListPassengersFragment : new ListPassengersFragment());
                 break;
 
             case MAKE_CALL_ITEM:
-                fragmentTransaction.replace(R.id.fragment_container, new MakeCallFragment());
+                fragmentTransaction.replace(R.id.fragment_container,
+                        (mMakeCallFragment != null) ?
+                                mMakeCallFragment : new MakeCallFragment());
                 break;
 
             case LIST_CALL_ITEM:
-                fragmentTransaction.replace(R.id.fragment_container, new ListCallFragment());
+                fragmentTransaction.replace(R.id.fragment_container,
+                        (mListCallFragment != null) ?
+                                mListCallFragment : new ListCallFragment());
                 break;
         }
 
@@ -113,7 +130,7 @@ public class MainActivity extends BaseNfcActivity<IMainPresenter> implements IMa
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        mNfcTagIdObserver.notifyListeners(
+        mNfcIdObserver.notifyListeners(
                 Utils.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
     }
 }

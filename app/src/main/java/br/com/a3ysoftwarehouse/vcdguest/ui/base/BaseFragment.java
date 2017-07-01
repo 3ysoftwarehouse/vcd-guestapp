@@ -2,7 +2,6 @@ package br.com.a3ysoftwarehouse.vcdguest.ui.base;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.util.Log;
 
 import be.appfoundry.nfclibrary.activities.NfcActivity;
 
@@ -24,11 +23,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof NfcActivity) {
-            Log.i(TAG, "onAttach()");
-
-            mActivity = (BaseNfcActivity) context;
-        }
+        if (context instanceof NfcActivity) mActivity = (BaseNfcActivity) context;
     }
 
     @Override

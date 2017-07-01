@@ -5,10 +5,11 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.app.App;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Call;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
-import br.com.a3ysoftwarehouse.vcdguest.observer.NfcTagIdObserver;
+import br.com.a3ysoftwarehouse.vcdguest.observer.NfcIdObserver;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BasePresenter;
 import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
 
@@ -17,55 +18,84 @@ import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
  */
 
 public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements IMakeCallPresenter,
-        NfcTagIdObserver.INfcTagIdListener {
+        NfcIdObserver.INfcTagIdListener {
     // Constants
     private static final String TAG = "MakeCallPresenter";
 
-    // Is Making Call
+    // Call status.
     private boolean isMakingCall;
 
-    // Passengers Present
+    // Call
     private Call mCall;
 
-    private List<Passenger> mPassengersNotPresent;
+    // All Passengers.
+    private List<Passenger> mPassengerList;
+
+    // Passenger clicked.
+    private Passenger mClickedPassenger;
 
     public MakeCallPresenter(IMakeCallView iMakeCallView) {
         super(iMakeCallView);
 
-        mPassengersNotPresent = new ArrayList<>(getDataManager().getPassenger());
+        mPassengerList = new ArrayList<>(getDataManager().getPassenger());
 
-        mCall = new Call();
-
-        NfcTagIdObserver.getInstance().subscribe(this);
+        NfcIdObserver.getInstance().subscribe(this);
     }
 
     @Override
     public void onAttach() {
-        getView().setPassengersNotPresentsRcData(mPassengersNotPresent);
+        mCall = new Call();
+
+        getView().setPassengersNotPresentsRcData(mPassengerList);
     }
 
     @Override
     public void onDettach() {
-
+        if (mCall != null) getDataManager().saveCallCache(mCall);
     }
 
     @Override
     public void onItemClick(View view, int position, Passenger passenger) {
+        if (isMakingCall) {
+            mClickedPassenger = passenger;
 
+            getView().showReleasePassengerDialog(passenger);
+
+        } else {
+            getView().showToast(Utils.getString(R.string.start_a_call));
+        }
     }
 
     @Override
     public void onMakeCallBtClick() {
         if (isMakingCall) {
-            getView().setMakeCallBtText("Iniciar");
-            isMakingCall = false;
+            if (mCall.getPassengersList().size() == 0) {
+                getView().showToast(Utils.getString(R.string.empty_call_msg));
 
-            saveCall();
+            } else {
+                getView().setMakeCallBtPlayIcon();
+
+                isMakingCall = false;
+
+                saveCall();
+            }
 
         } else {
-            getView().setMakeCallBtText("Salvar");
+            getView().setMakeCallSaveIcon();
+
             isMakingCall = true;
         }
+    }
+
+    @Override
+    public void onDialogPositiveBtClick() {
+        releasePassengerByCod(mClickedPassenger.getCOD());
+
+        getView().showToast(Utils.getString(R.string.passenger_realesed_msg));
+    }
+
+    @Override
+    public void onDialogNegativeBtClick() {
     }
 
     @Override
@@ -73,22 +103,52 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         if (isMakingCall) {
             Utils.beep(App.getContext());
 
-            Passenger passenger = searchPassengerByTag(tag);
+            releasePassengerByTag(tag);
+        }
+    }
 
-            if (passenger != null) {
-                mCall.getPassengersList().add(passenger);
+    private void releasePassengerByTag(String tag) {
+        Passenger passenger = searchPassengerByTag(tag);
 
-                mPassengersNotPresent.remove(passenger);
+        if (passenger != null) {
+            mCall.getPassengersList().add(passenger);
 
-                getView().setPassengersNotPresentsRcData(mPassengersNotPresent);
-            }
+            mPassengerList.remove(passenger);
+
+            getView().showPassengerDialog(passenger);
+            getView().setPassengersNotPresentsRcData(mPassengerList);
+        }
+    }
+
+    private void releasePassengerByCod(String cod) {
+        Passenger passenger = searchPassengerByCod(cod);
+
+        if (passenger != null) {
+            mCall.getPassengersList().add(passenger);
+
+            mPassengerList.remove(passenger);
+
+            getView().showPassengerDialog(passenger);
+            getView().setPassengersNotPresentsRcData(mPassengerList);
         }
     }
 
     private Passenger searchPassengerByTag(String tag) {
-        for (Passenger p : mPassengersNotPresent) {
+        for (Passenger p : mPassengerList) {
             if (p.getTag() != null) {
                 if (p.getTag().equals(tag)) {
+                    return p;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private Passenger searchPassengerByCod(String cod) {
+        for (Passenger p : mPassengerList) {
+            if (p.getCOD() != null) {
+                if (p.getCOD().equals(cod)) {
                     return p;
                 }
             }
@@ -103,8 +163,8 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         // Save the current call.
         getDataManager().saveCall(mCall);
 
-        mPassengersNotPresent = new ArrayList<>(getDataManager().getPassenger());
-        getView().setPassengersNotPresentsRcData(mPassengersNotPresent);
+        mPassengerList = new ArrayList<>(getDataManager().getPassenger());
+        getView().setPassengersNotPresentsRcData(mPassengerList);
 
         mCall = new Call();
 

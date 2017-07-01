@@ -4,8 +4,11 @@ import android.content.Context;
 
 import java.util.List;
 
+import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Call;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
+import br.com.a3ysoftwarehouse.vcdguest.exception.DatabaseException;
+import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
 import io.realm.Realm;
 
 /**
@@ -54,7 +57,13 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public void updatePassengerTag(final String cod, final String tag) {
+    public void updatePassengerTag(final String cod, final String tag) throws DatabaseException {
+        Passenger passenger = mRealm.where(Passenger.class).equalTo("tag", tag).findFirst();
+
+        if (passenger != null) {
+            throw new DatabaseException(Utils.getString(R.string.tag_already_registered));
+        }
+
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -79,5 +88,10 @@ public class DbHelper implements IDbHelper {
     @Override
     public List<Call> getCall() {
         return mRealm.where(Call.class).findAll();
+    }
+
+    @Override
+    public Call getCall(long id) {
+        return mRealm.where(Call.class).equalTo("id", id).findFirst();
     }
 }

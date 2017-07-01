@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 
 import br.com.a3ysoftwarehouse.vcdguest.R;
+import br.com.a3ysoftwarehouse.vcdguest.app.App;
 
 /**
  * Created by Iago Belo on 23/06/2017.
@@ -47,5 +48,9 @@ public final class Utils {
             }
         });
         mp.start();
+    }
+
+    public static String getString(int id) {
+        return App.getContext().getResources().getString(id);
     }
 }

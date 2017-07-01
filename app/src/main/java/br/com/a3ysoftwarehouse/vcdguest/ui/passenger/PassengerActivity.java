@@ -58,12 +58,13 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
 //    @BindView(R.id.passenter_codr3_tv) TextView mCodr3Tv;
     @BindView(R.id.passenter_refeicoes_tv) TextView mRefeicoesTv;
     @BindView(R.id.passenter_opcionais_tv) TextView mOpcionaisTv;
-    //    @BindView(R.id.passenter_opcional1_tv) TextView mOpcional1Tv;
-//    @BindView(R.id.passenter_opcional2_tv) TextView mOpcional2Tv;
-//    @BindView(R.id.passenter_opcional3_tv) TextView mOpcional3Tv;
-//    @BindView(R.id.passenter_opcional4_tv) TextView mOpcional4Tv;
-//    @BindView(R.id.passenter_opcional5_tv) TextView mOpcional5Tv;
-//    @BindView(R.id.passenter_opcional6_tv) TextView mOpcional6Tv;
+    @BindView(R.id.passenter_opcional1_tv) TextView mOpcional1Tv;
+    @BindView(R.id.passenter_opcional2_tv) TextView mOpcional2Tv;
+    @BindView(R.id.passenter_opcional3_tv) TextView mOpcional3Tv;
+    @BindView(R.id.passenter_opcional4_tv) TextView mOpcional4Tv;
+    @BindView(R.id.passenter_opcional5_tv) TextView mOpcional5Tv;
+    @BindView(R.id.passenter_opcional6_tv) TextView mOpcional6Tv;
+    @BindView(R.id.passenter_opcional7_tv) TextView mOpcional7Tv;
     @BindView(R.id.register_bracelet_fab) FloatingActionButton mRegisterBraceletFab;
     @BindView(R.id.passenger_tb) Toolbar mPassengerTb;
     @BindView(R.id.profile_img) ImageView mProfileImg;
@@ -74,7 +75,7 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         setContentView(R.layout.activity_passenger);
         ButterKnife.bind(this);
 
-        // Get clicked aassenger.
+        // Get passenger.
         Passenger passenger = getIntent().getParcelableExtra(Constants.Keys.PASSENGER);
         setPresenter(new PassengerPresenter(this, passenger));
 
@@ -82,7 +83,15 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         mPassengerTb.setTitle(passenger.getPAX());
         mPassengerTb.setTitleTextColor(getResources().getColor(R.color.white));
 
-        // Profile Picture
+        setSupportActionBar(mPassengerTb);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        showPassengerData(passenger);
+    }
+
+    @Override
+    public void showPassengerData(Passenger passenger) {
+        // Set Perfil Picture.
         Picasso.with(this)
                 .load(Utils.getPerfilPictureUrl(passenger.getCOD()))
                 .placeholder(new IconicsDrawable(App.getContext())
@@ -95,11 +104,6 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
                         .sizeDp(24))
                 .into(mProfileImg);
 
-        showPassengerData(passenger);
-    }
-
-    @Override
-    public void showPassengerData(Passenger passenger) {
         // Data
         mTagTv.setText((passenger.getTag() != null) ? passenger.getTag() : "");
         mCodTv.setText(passenger.getCOD());
@@ -125,6 +129,13 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         mRommates3Tv.setText(passenger.getROMMATE3());
         mRefeicoesTv.setText(passenger.getREFEICOES());
         mOpcionaisTv.setText(passenger.getOPCIONAIS());
+        mOpcional1Tv.setText(passenger.getOPCIONAL1());
+        mOpcional2Tv.setText(passenger.getOPCIONAL2());
+        mOpcional3Tv.setText(passenger.getOPCIONAL3());
+        mOpcional4Tv.setText(passenger.getOPCIONAL4());
+        mOpcional5Tv.setText(passenger.getOPCIONAL5());
+        mOpcional6Tv.setText(passenger.getOPCIONAL6());
+        mOpcional7Tv.setText(passenger.getOPCIONAL7());
 
         mRegisterBraceletFab.setImageBitmap(
                 new IconicsDrawable(this)

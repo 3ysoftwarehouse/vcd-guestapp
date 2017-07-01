@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.com.a3ysoftwarehouse.vcdguest.data.IDataManager;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
+import br.com.a3ysoftwarehouse.vcdguest.observer.NfcIdObserver;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BasePresenter;
 
 /**
@@ -14,13 +15,15 @@ import br.com.a3ysoftwarehouse.vcdguest.ui.base.BasePresenter;
  */
 
 public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
-        implements IListPassengersPresenter, IDataManager.ISyncListener {
+        implements IListPassengersPresenter, IDataManager.ISyncListener, NfcIdObserver.INfcTagIdListener {
 
     // Constants
     private static final String TAG = "ListPassengersPresenter";
 
     public ListPassengersPresenter(IListPassengersView iListPassengersView) {
         super(iListPassengersView);
+
+        NfcIdObserver.getInstance().subscribe(this);
     }
 
     @Override
@@ -55,9 +58,18 @@ public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
         getView().showSnackBar("Falha ao sincronizar.");
     }
 
-    private void setRecyclerViewData(){
+    private void setRecyclerViewData() {
         List<Passenger> passengerList = getDataManager().getPassenger();
 
         getView().setRecyclerViewData(passengerList);
+    }
+
+    @Override
+    public void onNewTag(String tag) {
+        for (Passenger p : getDataManager().getPassenger()) {
+            if (p.getTag() != null && p.getTag().equals(tag)) {
+                getView().openPassengerActivity(p);
+            }
+        }
     }
 }

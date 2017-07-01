@@ -15,7 +15,7 @@ import java.util.List;
 import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BaseFragment;
-import br.com.a3ysoftwarehouse.vcdguest.ui.listPassenger.adapter.ListPassengerAdapter;
+import br.com.a3ysoftwarehouse.vcdguest.ui.adapter.ListPassengerAdapter;
 import br.com.a3ysoftwarehouse.vcdguest.ui.passenger.PassengerActivity;
 import br.com.a3ysoftwarehouse.vcdguest.util.Constants;
 import butterknife.BindView;
@@ -33,8 +33,8 @@ public class ListPassengersFragment extends BaseFragment<IListPassengersPresente
 
     // View
     @BindView(R.id.list_passengers_rc) RecyclerView mListPassengersRc;
-    private LinearLayoutManager mLayoutManager;
-    private ListPassengerAdapter mAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
+    private ListPassengerAdapter mListPassengerAdapter;
 
     @Nullable
     @Override
@@ -47,19 +47,21 @@ public class ListPassengersFragment extends BaseFragment<IListPassengersPresente
         // mListPassengersRc
         mListPassengersRc.setHasFixedSize(true);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mListPassengersRc.setLayoutManager(mLayoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mListPassengersRc.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new ListPassengerAdapter(new ArrayList<Passenger>(), getPresenter());
-        mListPassengersRc.setAdapter(mAdapter);
+        mListPassengerAdapter = new ListPassengerAdapter(new ArrayList<Passenger>(), getPresenter());
+        mListPassengerAdapter.setType(ListPassengerAdapter.LINEAR);
+
+        mListPassengersRc.setAdapter(mListPassengerAdapter);
 
         return view;
     }
 
     @Override
     public void setRecyclerViewData(List<Passenger> passengerList) {
-        mAdapter.setData(passengerList);
-        mAdapter.notifyDataSetChanged();
+        mListPassengerAdapter.setData(passengerList);
+        mListPassengerAdapter.notifyDataSetChanged();
     }
 
     @Override

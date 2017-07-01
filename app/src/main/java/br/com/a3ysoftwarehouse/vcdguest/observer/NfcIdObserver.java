@@ -7,23 +7,19 @@ import java.util.List;
  * Created by Iago Belo on 23/06/2017.
  */
 
-public class NfcTagIdObserver {
-    private static volatile NfcTagIdObserver instance;
-    private List<INfcTagIdListener> listenerList;
+public class NfcIdObserver {
+    private static volatile NfcIdObserver instance;
+    private static List<INfcTagIdListener> listenerList;
 
-    public interface INfcTagIdListener {
-        void onNewTag(String tag);
-    }
-
-    private NfcTagIdObserver() {
+    private NfcIdObserver() {
         listenerList = new ArrayList<>();
     }
 
-    public static NfcTagIdObserver getInstance() {
+    public static NfcIdObserver getInstance() {
         if (instance == null) {
-            synchronized (NfcTagIdObserver.class) {
+            synchronized (NfcIdObserver.class) {
                 if (instance == null) {
-                    instance = new NfcTagIdObserver();
+                    instance = new NfcIdObserver();
                 }
             }
         }
@@ -39,5 +35,13 @@ public class NfcTagIdObserver {
         for (INfcTagIdListener listener : listenerList) {
             listener.onNewTag(tag);
         }
+    }
+
+    public void unsubscribe(INfcTagIdListener listener) {
+        listenerList.remove(listener);
+    }
+
+    public interface INfcTagIdListener {
+        void onNewTag(String tag);
     }
 }

@@ -46,6 +46,7 @@ public class Passenger extends RealmObject implements Parcelable {
     private String OPCIONAL4;
     private String OPCIONAL5;
     private String OPCIONAL6;
+    private String OPCIONAL7;
     private String tag;
 
     public Passenger() {
@@ -323,12 +324,62 @@ public class Passenger extends RealmObject implements Parcelable {
         this.OPCIONAL6 = OPCIONAL6;
     }
 
+    public String getOPCIONAL7() {
+        return OPCIONAL7;
+    }
+
+    public void setOPCIONAL7(String OPCIONAL7) {
+        this.OPCIONAL7 = OPCIONAL7;
+    }
+
     public String getTag() {
         return tag;
     }
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "COD='" + COD + '\'' +
+                ", DATA='" + DATA + '\'' +
+                ", PAX='" + PAX + '\'' +
+                ", QUARTO='" + QUARTO + '\'' +
+                ", VOO='" + VOO + '\'' +
+                ", LOC='" + LOC + '\'' +
+                ", ETKT='" + ETKT + '\'' +
+                ", CIA='" + CIA + '\'' +
+                ", GRUPO='" + GRUPO + '\'' +
+                ", EMISSOR='" + EMISSOR + '\'' +
+                ", AGENCIA='" + AGENCIA + '\'' +
+                ", ESCOLA='" + ESCOLA + '\'' +
+                ", SEXO='" + SEXO + '\'' +
+                ", DATANASCIMENTO='" + DATANASCIMENTO + '\'' +
+                ", CELPAX='" + CELPAX + '\'' +
+                ", EMAILPAX='" + EMAILPAX + '\'' +
+                ", RESPPAX='" + RESPPAX + '\'' +
+                ", FONERESP='" + FONERESP + '\'' +
+                ", EMAILRESP='" + EMAILRESP + '\'' +
+                ", ROMMATES='" + ROMMATES + '\'' +
+                ", ROMMATE1='" + ROMMATE1 + '\'' +
+                ", ROMMATE2='" + ROMMATE2 + '\'' +
+                ", ROMMATE3='" + ROMMATE3 + '\'' +
+                ", CODR1='" + CODR1 + '\'' +
+                ", CODR2='" + CODR2 + '\'' +
+                ", CODR3='" + CODR3 + '\'' +
+                ", REFEICOES='" + REFEICOES + '\'' +
+                ", OPCIONAIS='" + OPCIONAIS + '\'' +
+                ", OPCIONAL1='" + OPCIONAL1 + '\'' +
+                ", OPCIONAL2='" + OPCIONAL2 + '\'' +
+                ", OPCIONAL3='" + OPCIONAL3 + '\'' +
+                ", OPCIONAL4='" + OPCIONAL4 + '\'' +
+                ", OPCIONAL5='" + OPCIONAL5 + '\'' +
+                ", OPCIONAL6='" + OPCIONAL6 + '\'' +
+                ", OPCIONAL7='" + OPCIONAL7 + '\'' +
+                ", tag='" + tag + '\'' +
+                '}';
     }
 
     @Override
@@ -372,6 +423,7 @@ public class Passenger extends RealmObject implements Parcelable {
         dest.writeString(this.OPCIONAL4);
         dest.writeString(this.OPCIONAL5);
         dest.writeString(this.OPCIONAL6);
+        dest.writeString(this.OPCIONAL7);
         dest.writeString(this.tag);
     }
 
@@ -410,6 +462,7 @@ public class Passenger extends RealmObject implements Parcelable {
         this.OPCIONAL4 = in.readString();
         this.OPCIONAL5 = in.readString();
         this.OPCIONAL6 = in.readString();
+        this.OPCIONAL7 = in.readString();
         this.tag = in.readString();
     }
 
@@ -424,45 +477,4 @@ public class Passenger extends RealmObject implements Parcelable {
             return new Passenger[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "Passenger{" +
-                "COD='" + COD + '\'' +
-                ", DATA='" + DATA + '\'' +
-                ", PAX='" + PAX + '\'' +
-                ", QUARTO='" + QUARTO + '\'' +
-                ", VOO='" + VOO + '\'' +
-                ", LOC='" + LOC + '\'' +
-                ", ETKT='" + ETKT + '\'' +
-                ", CIA='" + CIA + '\'' +
-                ", GRUPO='" + GRUPO + '\'' +
-                ", EMISSOR='" + EMISSOR + '\'' +
-                ", AGENCIA='" + AGENCIA + '\'' +
-                ", ESCOLA='" + ESCOLA + '\'' +
-                ", SEXO='" + SEXO + '\'' +
-                ", DATANASCIMENTO='" + DATANASCIMENTO + '\'' +
-                ", CELPAX='" + CELPAX + '\'' +
-                ", EMAILPAX='" + EMAILPAX + '\'' +
-                ", RESPPAX='" + RESPPAX + '\'' +
-                ", FONERESP='" + FONERESP + '\'' +
-                ", EMAILRESP='" + EMAILRESP + '\'' +
-                ", ROMMATES='" + ROMMATES + '\'' +
-                ", ROMMATE1='" + ROMMATE1 + '\'' +
-                ", ROMMATE2='" + ROMMATE2 + '\'' +
-                ", ROMMATE3='" + ROMMATE3 + '\'' +
-                ", CODR1='" + CODR1 + '\'' +
-                ", CODR2='" + CODR2 + '\'' +
-                ", CODR3='" + CODR3 + '\'' +
-                ", REFEICOES='" + REFEICOES + '\'' +
-                ", OPCIONAIS='" + OPCIONAIS + '\'' +
-                ", OPCIONAL1='" + OPCIONAL1 + '\'' +
-                ", OPCIONAL2='" + OPCIONAL2 + '\'' +
-                ", OPCIONAL3='" + OPCIONAL3 + '\'' +
-                ", OPCIONAL4='" + OPCIONAL4 + '\'' +
-                ", OPCIONAL5='" + OPCIONAL5 + '\'' +
-                ", OPCIONAL6='" + OPCIONAL6 + '\'' +
-                ", tag='" + tag + '\'' +
-                '}';
-    }
 }

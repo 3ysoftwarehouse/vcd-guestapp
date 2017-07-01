@@ -12,5 +12,11 @@ import br.com.a3ysoftwarehouse.vcdguest.ui.base.IBaseView;
 public interface IMakeCallView extends IBaseView {
     void setPassengersNotPresentsRcData(List<Passenger> passengerList);
 
-    void setMakeCallBtText(String text);
+    void setMakeCallBtPlayIcon();
+
+    void setMakeCallSaveIcon();
+
+    void showReleasePassengerDialog(Passenger passenger);
+
+    void showPassengerDialog(Passenger passenger);
 }

@@ -12,6 +12,7 @@ import br.com.a3ysoftwarehouse.vcdguest.data.model.Call;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
 import br.com.a3ysoftwarehouse.vcdguest.data.network.ApiHelper;
 import br.com.a3ysoftwarehouse.vcdguest.data.network.IApiHelper;
+import br.com.a3ysoftwarehouse.vcdguest.exception.DatabaseException;
 
 /**
  * Created by Iago Belo on 21/06/17.
@@ -19,6 +20,7 @@ import br.com.a3ysoftwarehouse.vcdguest.data.network.IApiHelper;
 
 public class DataManager implements IDataManager {
     // Constants
+    public static final long CALL_CACHE_ID = 98989898;
     private static final String TAG = "DataManager";
 
     // Instance
@@ -88,6 +90,17 @@ public class DataManager implements IDataManager {
     }
 
     @Override
+    public void saveCallCache(Call call) {
+        call.setId(CALL_CACHE_ID);
+        mIDbHelper.saveCall(call);
+    }
+
+    @Override
+    public Call getCallCache() {
+        return mIDbHelper.getCall(CALL_CACHE_ID);
+    }
+
+    @Override
     public List<Passenger> getPassenger() {
         return mIDbHelper.getPassenger();
     }
@@ -103,7 +116,7 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public void updatePassengerTag(String cod, String tag) {
+    public void updatePassengerTag(String cod, String tag) throws DatabaseException {
         mIDbHelper.updatePassengerTag(cod, tag);
     }
 
@@ -115,5 +128,10 @@ public class DataManager implements IDataManager {
     @Override
     public List<Call> getCall() {
         return mIDbHelper.getCall();
+    }
+
+    @Override
+    public Call getCall(long id) {
+        return mIDbHelper.getCall(id);
     }
 }

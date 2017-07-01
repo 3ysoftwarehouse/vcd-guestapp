@@ -24,7 +24,6 @@
                 style="@style/textStyleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/tag"/>
 
             <TextView
@@ -245,6 +244,7 @@
                 style="@style/textStyleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/resp_pax"/>
 
             <TextView
@@ -364,11 +364,11 @@
             <!--android:layout_marginTop="@dimen/vertical_margin"-->
             <!--android:text="@string/codr3"/>-->
 
-            <TextView
-                android:id="@+id/passenter_codr3_tv"
-                style="@style/textStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_codr3_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
 
             <TextView
                 style="@style/textStyleLabel"
@@ -396,83 +396,96 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <!--<TextView-->
-            <!--style="@style/textStyleLabel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/vertical_margin"-->
-            <!--android:text="@string/opcional1"/>-->
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcional1"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/passenter_opcional1_tv"-->
-            <!--style="@style/textStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/passenter_opcional1_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <!--<TextView-->
-            <!--style="@style/textStyleLabel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/vertical_margin"-->
-            <!--android:text="@string/opcional2"/>-->
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcional2"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/passenter_opcional2_tv"-->
-            <!--style="@style/textStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/passenter_opcional2_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <!--<TextView-->
-            <!--style="@style/textStyleLabel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/vertical_margin"-->
-            <!--android:text="@string/opcional3"/>-->
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcional3"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/passenter_opcional3_tv"-->
-            <!--style="@style/textStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/passenter_opcional3_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <!--<TextView-->
-            <!--style="@style/textStyleLabel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/vertical_margin"-->
-            <!--android:text="@string/opcional4"/>-->
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcional4"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/passenter_opcional4_tv"-->
-            <!--style="@style/textStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/passenter_opcional4_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <!--<TextView-->
-            <!--style="@style/textStyleLabel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/vertical_margin"-->
-            <!--android:text="@string/opcional5"/>-->
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcional5"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/passenter_opcional5_tv"-->
-            <!--style="@style/textStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/passenter_opcional5_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <!--<TextView-->
-            <!--style="@style/textStyleLabel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/vertical_margin"-->
-            <!--android:text="@string/opcional6"/>-->
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcional6"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/passenter_opcional6_tv"-->
-            <!--style="@style/textStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/passenter_opcional6_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcional7"/>
+
+            <TextView
+                android:id="@+id/passenter_opcional7_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">VCD Guest</string>
-    <string name="list_passengers">Listar Passageiros</string>
+    <string name="list_passengers">Lista de Passageiros</string>
     <string name="make_call">Fazer Chamada</string>
     <string name="list_call">Listar Chamadas</string>
     <string name="tag">TAG</string>
@@ -33,11 +33,12 @@
     <string name="refeicoes">REFEICOES</string>
     <string name="opcionais">OPCIONAIS</string>
     <string name="opcional1">OPCIONAL 1</string>
-    <string name="opcional2">OPCIONAL 1</string>
-    <string name="opcional3">OPCIONAL 1</string>
-    <string name="opcional4">OPCIONAL 1</string>
-    <string name="opcional5">OPCIONAL 1</string>
-    <string name="opcional6">OPCIONAL 1</string>
+    <string name="opcional2">OPCIONAL 2</string>
+    <string name="opcional3">OPCIONAL 3</string>
+    <string name="opcional4">OPCIONAL 4</string>
+    <string name="opcional5">OPCIONAL 5</string>
+    <string name="opcional6">OPCIONAL 6</string>
+    <string name="opcional7">OPCIONAL 7</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -129,4 +130,13 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="profile_img">Imagem de Perfil.</string>
+    <string name="release_passenger_dialog_tittle">Liberar pax: </string>
+    <string name="release_passenger_dialog_message">Liberar pax?</string>
+    <string name="agree">Sim</string>
+    <string name="disagree">Não</string>
+    <string name="passenger_realesed_msg">Passageiro Liberado.</string>
+    <string name="start_a_call">Para iniciar uma chamada, clique no botão antes.</string>
+    <string name="empty_call_msg">Chamada vazia.</string>
+    <string name="tag_already_registered">Tag já cadastrada.</string>
+    <string name="registered_tag_msg">Tag registrada.</string>
 </resources>

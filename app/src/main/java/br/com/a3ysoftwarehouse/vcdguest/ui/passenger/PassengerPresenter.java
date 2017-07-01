@@ -1,7 +1,9 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.passenger;
 
+import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.app.App;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
+import br.com.a3ysoftwarehouse.vcdguest.exception.DatabaseException;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BasePresenter;
 import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
 
@@ -53,22 +55,27 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
         if (registerTag) {
             Utils.beep(App.getContext());
 
-            // Update passenger tag
-            getDataManager().updatePassengerTag(mPassenger.getCOD(), tagId);
+            try {
+                // Update passenger tag
+                getDataManager().updatePassengerTag(mPassenger.getCOD(), tagId);
 
-            registerTag = false;
+                registerTag = false;
 
-            getView().showToast("Tag registrada.");
+                getView().showToast(Utils.getString(R.string.registered_tag_msg));
 
-            getView().showProgress(true);
+                getView().showProgress(true);
 
-            mPassenger = getDataManager().getPassenger(mPassenger.getCOD());
+                mPassenger = getDataManager().getPassenger(mPassenger.getCOD());
 
-            getView().showPassengerData(mPassenger);
+                getView().showPassengerData(mPassenger);
 
-            getView().showProgress(false);
+                getView().showProgress(false);
 
-            getView().finishActivity();
+                getView().finishActivity();
+
+            } catch (DatabaseException e) {
+                getView().showToast(e.getMessage());
+            }
         }
     }
 }
