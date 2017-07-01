@@ -1,6 +1,5 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.listPassenger;
 
-import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -22,13 +21,11 @@ public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
 
     public ListPassengersPresenter(IListPassengersView iListPassengersView) {
         super(iListPassengersView);
-
-        NfcIdObserver.getInstance().subscribe(this);
     }
 
     @Override
     public void onAttach() {
-        Log.i(TAG, "onAttach()");
+        NfcIdObserver.getInstance().subscribe(this);
 
         getDataManager().subscribePassengerSync(this);
 
@@ -41,6 +38,7 @@ public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
 
     @Override
     public void onDettach() {
+        NfcIdObserver.getInstance().subscribe(this);
     }
 
     @Override
