@@ -38,12 +38,12 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         super(iMakeCallView);
 
         mPassengerList = new ArrayList<>(getDataManager().getPassenger());
-
-        NfcIdObserver.getInstance().subscribe(this);
     }
 
     @Override
     public void onAttach() {
+        NfcIdObserver.getInstance().subscribe(this);
+
         mCall = new Call();
 
         getView().setPassengersNotPresentsRcData(mPassengerList);
@@ -51,7 +51,7 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
 
     @Override
     public void onDettach() {
-        if (mCall != null) getDataManager().saveCallCache(mCall);
+        NfcIdObserver.getInstance().unsubscribe(this);
     }
 
     @Override
