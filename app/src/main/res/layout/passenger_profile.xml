@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context="br.com.a3ysoftwarehouse.vcdguest.ui.passenger.PassengerActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/tag"/>
+
+            <TextView
+                android:id="@+id/passenter_tag_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/cod"/>
+
+            <TextView
+                android:id="@+id/passenter_cod_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/data"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_data_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/pax_name"/>
+
+            <TextView
+                android:id="@+id/passenter_pax_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/quarto"/>
+
+            <TextView
+                android:id="@+id/passenter_quarto_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/voo"/>
+
+            <TextView
+                android:id="@+id/passenter_voo_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/loc"/>
+
+            <TextView
+                android:id="@+id/passenter_loc_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/ETKT"/>
+
+            <TextView
+                android:id="@+id/passenter_etkt_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/cia"/>
+
+            <TextView
+                android:id="@+id/passenter_cia_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/grupo"/>
+
+            <TextView
+                android:id="@+id/passenter_grupo_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/emissor"/>
+
+            <TextView
+                android:id="@+id/passenter_emissor_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/agencia"/>
+
+            <TextView
+                android:id="@+id/passenter_agencia_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/escola"/>
+
+            <TextView
+                android:id="@+id/passenter_escola_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/sexo"/>
+
+            <TextView
+                android:id="@+id/passenter_sexo_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/datanascimento"/>
+
+            <TextView
+                android:id="@+id/passenter_datanascimento_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/cellpax"/>
+
+            <TextView
+                android:id="@+id/passenter_cellpax_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/email_pax"/>
+
+            <TextView
+                android:id="@+id/passenter_emailpax_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resp_pax"/>
+
+            <TextView
+                android:id="@+id/passenter_resppax_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/fone_resp"/>
+
+            <TextView
+                android:id="@+id/passenter_foneresp_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/email_resp"/>
+
+            <TextView
+                android:id="@+id/passenter_emailresp_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/rommates"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_rommates_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/rommates1"/>
+
+            <TextView
+                android:id="@+id/passenter_rommates1_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/rommates2"/>
+
+            <TextView
+                android:id="@+id/passenter_rommates2_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/rommates3"/>
+
+            <TextView
+                android:id="@+id/passenter_rommates3_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/codr1"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_codr1_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/codr2"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_codr2_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/codr3"/>-->
+
+            <TextView
+                android:id="@+id/passenter_codr3_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/refeicoes"/>
+
+            <TextView
+                android:id="@+id/passenter_refeicoes_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/textStyleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/opcionais"/>
+
+            <TextView
+                android:id="@+id/passenter_opcionais_tv"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/opcional1"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_opcional1_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/opcional2"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_opcional2_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/opcional3"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_opcional3_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/opcional4"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_opcional4_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/opcional5"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_opcional5_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+            <!--style="@style/textStyleLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/vertical_margin"-->
+            <!--android:text="@string/opcional6"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/passenter_opcional6_tv"-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.v4.widget.NestedScrollView>
