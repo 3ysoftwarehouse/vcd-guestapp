@@ -14,10 +14,17 @@ import br.com.a3ysoftwarehouse.vcdguest.ui.base.BasePresenter;
  */
 
 public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
-        implements IListPassengersPresenter, IDataManager.ISyncListener, NfcIdObserver.INfcTagIdListener {
+        implements IListPassengersPresenter, IDataManager.ISyncListener,
+        NfcIdObserver.INfcTagIdListener {
 
     // Constants
     private static final String TAG = "ListPassengersPresenter";
+
+    // Last detected tag
+    private String mLastTag;
+
+    // Last detected tag time
+    private long mLastTagTime;
 
     public ListPassengersPresenter(IListPassengersView iListPassengersView) {
         super(iListPassengersView);
@@ -57,17 +64,28 @@ public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
     }
 
     private void setRecyclerViewData() {
-        List<Passenger> passengerList = getDataManager().getPassenger();
+        List<Passenger> passengerList = getDataManager().getPassengerByCod();
 
         getView().setRecyclerViewData(passengerList);
     }
 
     @Override
     public void onNewTag(String tag) {
-        for (Passenger p : getDataManager().getPassenger()) {
-            if (p.getTag() != null && p.getTag().equals(tag)) {
-                getView().openPassengerActivity(p);
+        if (canSearchPassenger(tag)) {
+            Passenger passenger = getDataManager().getPassengerByTag(tag);
+
+            if (passenger != null) {
+                mLastTagTime = System.currentTimeMillis();
+                mLastTag = tag;
+
+                getView().openPassengerActivity(passenger);
             }
         }
+    }
+
+    private boolean canSearchPassenger(String tag) {
+        long resultTime = System.currentTimeMillis() - mLastTagTime;
+
+        return !tag.equals(mLastTag) || resultTime > 3000;
     }
 }
