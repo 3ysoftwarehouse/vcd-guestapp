@@ -10,4 +10,10 @@ public interface IPassengerPresenter extends IBasePresenter {
     void onRegisterBraceletBtClick();
 
     void onTagRead(String tagId);
+
+    void onMedicalRecordBtClick();
+
+    void permissionsGranted();
+
+    void permissionsNotGranted();
 }
