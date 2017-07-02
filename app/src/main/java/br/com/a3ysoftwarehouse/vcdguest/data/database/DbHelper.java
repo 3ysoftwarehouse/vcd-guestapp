@@ -28,13 +28,18 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public List<Passenger> getPassenger() {
+    public List<Passenger> getPassengerByCod() {
         return mRealm.where(Passenger.class).findAll();
     }
 
     @Override
-    public Passenger getPassenger(String cod) {
+    public Passenger getPassengerByCod(String cod) {
         return mRealm.where(Passenger.class).equalTo("COD", cod).findFirst();
+    }
+
+    @Override
+    public Passenger getPassengerByTag(String tag) {
+        return mRealm.where(Passenger.class).equalTo("tag", tag).findFirst();
     }
 
     @Override
@@ -42,7 +47,7 @@ public class DbHelper implements IDbHelper {
         mRealm.beginTransaction();
 
         for (Passenger p : passengerList) {
-            Passenger passenger = getPassenger(p.getCOD());
+            Passenger passenger = getPassengerByCod(p.getCOD());
 
             if (passenger != null) {
                 String tag = passenger.getTag();
