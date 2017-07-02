@@ -11,6 +11,9 @@ import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
 public interface IApiHelper {
     void getPassengers(IApiRequestListener<List<Passenger>> listener);
 
+    void getPassengerRecord(String url, String dirPath, String fileName,
+                            IApiRequestListener<Void> listener);
+
     interface IApiRequestListener<T> {
         void onSuccess(T t);
 

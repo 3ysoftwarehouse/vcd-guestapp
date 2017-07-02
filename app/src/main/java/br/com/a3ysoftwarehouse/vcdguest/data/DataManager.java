@@ -20,7 +20,6 @@ import br.com.a3ysoftwarehouse.vcdguest.exception.DatabaseException;
 
 public class DataManager implements IDataManager {
     // Constants
-    public static final long CALL_CACHE_ID = 98989898;
     private static final String TAG = "DataManager";
 
     // Instance
@@ -32,7 +31,7 @@ public class DataManager implements IDataManager {
     // DbHelper
     private IDbHelper mIDbHelper;
 
-    // List Observer
+    // Observer List
     private List<ISyncListener> mISyncListeners;
 
     private DataManager() {
@@ -53,13 +52,13 @@ public class DataManager implements IDataManager {
         return instance;
     }
 
-    private void notifyListenersOnSuccess() {
+    private void notifyOnSyncSuccess() {
         for (ISyncListener i : mISyncListeners) {
             i.onSuccess();
         }
     }
 
-    private void notifyListenersOnFailed() {
+    private void notifyOnSyncFailed() {
         for (ISyncListener i : mISyncListeners) {
             i.onFailed();
         }
@@ -72,14 +71,14 @@ public class DataManager implements IDataManager {
             public void onSuccess(List<Passenger> passengerList) {
                 mIDbHelper.savePassengers(passengerList);
 
-                notifyListenersOnSuccess();
+                notifyOnSyncSuccess();
             }
 
             @Override
             public void onFailed() {
                 Log.e(TAG, "Erro ao sincronizar passageiros.");
 
-                notifyListenersOnFailed();
+                notifyOnSyncFailed();
             }
         });
     }
@@ -90,14 +89,8 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public void saveCallCache(Call call) {
-        call.setId(CALL_CACHE_ID);
-        mIDbHelper.saveCall(call);
-    }
-
-    @Override
-    public Call getCallCache() {
-        return mIDbHelper.getCall(CALL_CACHE_ID);
+    public void unsubscribePassengerSync(ISyncListener listener) {
+        mISyncListeners.remove(listener);
     }
 
     @Override
@@ -133,5 +126,16 @@ public class DataManager implements IDataManager {
     @Override
     public Call getCall(long id) {
         return mIDbHelper.getCall(id);
+    }
+
+    @Override
+    public void getPassengers(IApiRequestListener<List<Passenger>> listener) {
+        mIApiHelper.getPassengers(listener);
+    }
+
+    @Override
+    public void getPassengerRecord(String url, String dirPath, String fileName,
+                                   IApiRequestListener<Void> listener) {
+        mIApiHelper.getPassengerRecord(url, dirPath, fileName, listener);
     }
 }
