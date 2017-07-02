@@ -65,7 +65,7 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
 
                 getView().showProgress(true);
 
-                mPassenger = getDataManager().getPassenger(mPassenger.getCOD());
+                mPassenger = getDataManager().getPassengerByCod(mPassenger.getCOD());
 
                 getView().showPassengerData(mPassenger);
 
