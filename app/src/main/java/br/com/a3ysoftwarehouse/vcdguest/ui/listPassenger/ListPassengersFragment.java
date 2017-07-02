@@ -1,10 +1,12 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.listPassenger;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +16,9 @@ import java.util.List;
 
 import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
-import br.com.a3ysoftwarehouse.vcdguest.ui.base.BaseFragment;
 import br.com.a3ysoftwarehouse.vcdguest.ui.adapter.ListPassengerAdapter;
+import br.com.a3ysoftwarehouse.vcdguest.ui.base.BaseFragment;
+import br.com.a3ysoftwarehouse.vcdguest.ui.main.MainActivity;
 import br.com.a3ysoftwarehouse.vcdguest.ui.passenger.PassengerActivity;
 import br.com.a3ysoftwarehouse.vcdguest.util.Constants;
 import butterknife.BindView;
@@ -33,8 +36,19 @@ public class ListPassengersFragment extends BaseFragment<IListPassengersPresente
 
     // View
     @BindView(R.id.list_passengers_rc) RecyclerView mListPassengersRc;
+
     private LinearLayoutManager mLinearLayoutManager;
     private ListPassengerAdapter mListPassengerAdapter;
+
+    // MainActivity
+    private MainActivity mMainActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        mMainActivity = (MainActivity) activity;
+    }
 
     @Nullable
     @Override
@@ -66,7 +80,7 @@ public class ListPassengersFragment extends BaseFragment<IListPassengersPresente
 
     @Override
     public void openPassengerActivity(Passenger passenger) {
-        Intent i = new Intent(getActivity(), PassengerActivity.class);
+        Intent i = new Intent(mMainActivity, PassengerActivity.class);
         i.putExtra(Constants.Keys.PASSENGER, passenger);
 
         startActivity(i);

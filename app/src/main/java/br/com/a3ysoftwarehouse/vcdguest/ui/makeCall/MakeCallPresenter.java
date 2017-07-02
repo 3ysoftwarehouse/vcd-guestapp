@@ -37,7 +37,7 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
     public MakeCallPresenter(IMakeCallView iMakeCallView) {
         super(iMakeCallView);
 
-        mPassengerList = new ArrayList<>(getDataManager().getPassenger());
+        mPassengerList = new ArrayList<>(getDataManager().getPassengerByCod());
     }
 
     @Override
@@ -163,7 +163,7 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         // Save the current call.
         getDataManager().saveCall(mCall);
 
-        mPassengerList = new ArrayList<>(getDataManager().getPassenger());
+        mPassengerList = new ArrayList<>(getDataManager().getPassengerByCod());
         getView().setPassengersNotPresentsRcData(mPassengerList);
 
         mCall = new Call();
