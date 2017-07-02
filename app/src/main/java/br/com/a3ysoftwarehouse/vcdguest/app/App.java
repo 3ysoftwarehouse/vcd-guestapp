@@ -3,6 +3,8 @@ package br.com.a3ysoftwarehouse.vcdguest.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.androidnetworking.AndroidNetworking;
+
 import br.com.a3ysoftwarehouse.vcdguest.data.DataManager;
 import br.com.a3ysoftwarehouse.vcdguest.data.IDataManager;
 
@@ -30,7 +32,11 @@ public class App extends Application {
 
         instance = this;
 
+        // Sync Passengers
         mIDataManager = DataManager.getInstance();
         mIDataManager.syncPassengers();
+
+        // Android Networking Init
+        AndroidNetworking.initialize(this);
     }
 }
