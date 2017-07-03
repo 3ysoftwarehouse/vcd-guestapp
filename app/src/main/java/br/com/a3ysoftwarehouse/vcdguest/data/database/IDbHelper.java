@@ -11,9 +11,11 @@ import br.com.a3ysoftwarehouse.vcdguest.exception.DatabaseException;
  */
 
 public interface IDbHelper {
-    List<Passenger> getPassenger();
+    List<Passenger> getPassengerByCod();
 
-    Passenger getPassenger(String cod);
+    Passenger getPassengerByCod(String cod);
+
+    Passenger getPassengerByTag(String tag);
 
     void savePassengers(List<Passenger> passengerList);
 

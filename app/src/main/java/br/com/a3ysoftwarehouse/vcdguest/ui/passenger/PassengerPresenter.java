@@ -71,7 +71,7 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
                 getView().showToast(Utils.getString(R.string.registered_tag_msg));
                 getView().showProgress(true);
 
-                mPassenger = getDataManager().getPassenger(mPassenger.getCOD());
+                mPassenger = getDataManager().getPassengerByCod(mPassenger.getCOD());
 
                 getView().showPassengerData(mPassenger);
                 getView().showProgress(false);

@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -226,5 +227,17 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
 
         getPresenter().onTagRead(
                 Utils.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

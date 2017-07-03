@@ -94,13 +94,18 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public List<Passenger> getPassenger() {
-        return mIDbHelper.getPassenger();
+    public List<Passenger> getPassengerByCod() {
+        return mIDbHelper.getPassengerByCod();
     }
 
     @Override
-    public Passenger getPassenger(String cod) {
-        return mIDbHelper.getPassenger(cod);
+    public Passenger getPassengerByCod(String cod) {
+        return mIDbHelper.getPassengerByCod(cod);
+    }
+
+    @Override
+    public Passenger getPassengerByTag(String tag) {
+        return mIDbHelper.getPassengerByTag(tag);
     }
 
     @Override
