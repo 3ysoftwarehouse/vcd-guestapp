@@ -1,11 +1,18 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.passenger;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +20,8 @@ import android.widget.TextView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.app.App;
@@ -28,44 +37,50 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         implements IPassengerView {
     // Constants
     private static final String TAG = "PassengerActivity";
+    private static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+    private static final int GET_PERMISSIONS_REQUEST_CODE = 100;
 
     // Views
-    @BindView(R.id.passenter_tag_tv) TextView mTagTv;
-    @BindView(R.id.passenter_cod_tv) TextView mCodTv;
+    @BindView(R.id.passenger_tag_tv) TextView mTagTv;
+    @BindView(R.id.passenger_cod_tv) TextView mCodTv;
     //    @BindView(R.id.passenter_data_tv) TextView mDataTv;
-    @BindView(R.id.passenter_pax_tv) TextView mPaxTv;
-    @BindView(R.id.passenter_quarto_tv) TextView mQuartoTv;
-    @BindView(R.id.passenter_voo_tv) TextView mVooTv;
-    @BindView(R.id.passenter_loc_tv) TextView mLocTv;
-    @BindView(R.id.passenter_etkt_tv) TextView mEtktTv;
-    @BindView(R.id.passenter_cia_tv) TextView mCiaTv;
-    @BindView(R.id.passenter_grupo_tv) TextView mGrupoTv;
-    @BindView(R.id.passenter_emissor_tv) TextView mEmissorTv;
-    @BindView(R.id.passenter_agencia_tv) TextView mAgenciaTv;
-    @BindView(R.id.passenter_escola_tv) TextView mEscolaTv;
-    @BindView(R.id.passenter_sexo_tv) TextView mSexoTv;
-    @BindView(R.id.passenter_datanascimento_tv) TextView mDataNascimentoTv;
-    @BindView(R.id.passenter_cellpax_tv) TextView mCellPaxTv;
-    @BindView(R.id.passenter_emailpax_tv) TextView mEmailPaxTv;
-    @BindView(R.id.passenter_resppax_tv) TextView mRespPaxTv;
-    @BindView(R.id.passenter_foneresp_tv) TextView mFoneRespTv;
-    @BindView(R.id.passenter_emailresp_tv) TextView mEmailRespTv;
+    @BindView(R.id.passenger_pax_tv) TextView mPaxTv;
+    @BindView(R.id.passenger_quarto_tv) TextView mQuartoTv;
+    @BindView(R.id.passenger_voo_tv) TextView mVooTv;
+    @BindView(R.id.passenger_loc_tv) TextView mLocTv;
+    @BindView(R.id.passenger_etkt_tv) TextView mEtktTv;
+    @BindView(R.id.passenger_cia_tv) TextView mCiaTv;
+    @BindView(R.id.passenger_grupo_tv) TextView mGrupoTv;
+    @BindView(R.id.passenger_emissor_tv) TextView mEmissorTv;
+    @BindView(R.id.passenger_agencia_tv) TextView mAgenciaTv;
+    @BindView(R.id.passenger_escola_tv) TextView mEscolaTv;
+    @BindView(R.id.passenger_sexo_tv) TextView mSexoTv;
+    @BindView(R.id.passenger_datanascimento_tv) TextView mDataNascimentoTv;
+    @BindView(R.id.passenger_cellpax_tv) TextView mCellPaxTv;
+    @BindView(R.id.passenger_emailpax_tv) TextView mEmailPaxTv;
+    @BindView(R.id.passenger_resppax_tv) TextView mRespPaxTv;
+    @BindView(R.id.passenger_foneresp_tv) TextView mFoneRespTv;
+    @BindView(R.id.passenger_emailresp_tv) TextView mEmailRespTv;
     //    @BindView(R.id.passenter_rommates_tv) TextView mRommatesTv;
-    @BindView(R.id.passenter_rommates1_tv) TextView mRommates1Tv;
-    @BindView(R.id.passenter_rommates2_tv) TextView mRommates2Tv;
-    @BindView(R.id.passenter_rommates3_tv) TextView mRommates3Tv;
+    @BindView(R.id.passenger_rommates1_tv) TextView mRommates1Tv;
+    @BindView(R.id.passenger_rommates2_tv) TextView mRommates2Tv;
+    @BindView(R.id.passenger_rommates3_tv) TextView mRommates3Tv;
     //    @BindView(R.id.passenter_codr1_tv) TextView mCodr1Tv;
 //    @BindView(R.id.passenter_codr2_tv) TextView mCodr2Tv;
 //    @BindView(R.id.passenter_codr3_tv) TextView mCodr3Tv;
-    @BindView(R.id.passenter_refeicoes_tv) TextView mRefeicoesTv;
-    @BindView(R.id.passenter_opcionais_tv) TextView mOpcionaisTv;
-    @BindView(R.id.passenter_opcional1_tv) TextView mOpcional1Tv;
-    @BindView(R.id.passenter_opcional2_tv) TextView mOpcional2Tv;
-    @BindView(R.id.passenter_opcional3_tv) TextView mOpcional3Tv;
-    @BindView(R.id.passenter_opcional4_tv) TextView mOpcional4Tv;
-    @BindView(R.id.passenter_opcional5_tv) TextView mOpcional5Tv;
+    @BindView(R.id.passenger_refeicoes_tv) TextView mRefeicoesTv;
+    @BindView(R.id.passenger_opcionais_tv) TextView mOpcionaisTv;
+    @BindView(R.id.passenger_opcional1_tv) TextView mOpcional1Tv;
+    @BindView(R.id.passenger_opcional2_tv) TextView mOpcional2Tv;
+    @BindView(R.id.passenger_opcional3_tv) TextView mOpcional3Tv;
+    @BindView(R.id.passenger_opcional4_tv) TextView mOpcional4Tv;
+    @BindView(R.id.passenger_opcional5_tv) TextView mOpcional5Tv;
     @BindView(R.id.passenter_opcional6_tv) TextView mOpcional6Tv;
-    @BindView(R.id.passenter_opcional7_tv) TextView mOpcional7Tv;
+    @BindView(R.id.passenger_opcional7_tv) TextView mOpcional7Tv;
+    @BindView(R.id.passenger_medical_record_bt) Button mMedicalRecordBt;
     @BindView(R.id.register_bracelet_fab) FloatingActionButton mRegisterBraceletFab;
     @BindView(R.id.passenger_tb) Toolbar mPassengerTb;
     @BindView(R.id.profile_img) ImageView mProfileImg;
@@ -152,9 +167,58 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         finish();
     }
 
+    @Override
+    public void openAdobeReader(File file) {
+        Uri path = Uri.fromFile(file);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(path, "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void checkPermission() {
+        int write =
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int read =
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (write != PackageManager.PERMISSION_GRANTED
+                || read != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, GET_PERMISSIONS_REQUEST_CODE);
+        } else {
+            getPresenter().permissionsGranted();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case GET_PERMISSIONS_REQUEST_CODE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    getPresenter().permissionsGranted();
+
+                } else {
+
+                    getPresenter().permissionsNotGranted();
+                }
+                break;
+        }
+    }
+
     @OnClick(R.id.register_bracelet_fab)
     void onRegisterBraceletBtClick() {
         getPresenter().onRegisterBraceletBtClick();
+    }
+
+    @OnClick(R.id.passenger_medical_record_bt)
+    void onMedicalRecordBtClick() {
+        getPresenter().onMedicalRecordBtClick();
     }
 
     @Override

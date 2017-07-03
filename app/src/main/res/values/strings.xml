@@ -139,4 +139,7 @@
     <string name="empty_call_msg">Chamada vazia.</string>
     <string name="tag_already_registered">Tag já cadastrada.</string>
     <string name="registered_tag_msg">Tag registrada.</string>
+    <string name="medical_record">FICHA MÉDICA</string>
+    <string name="permissions_granted_msg">Permissões concedidas com sucesso.</string>
+    <string name="permissions_not_granted_msg">Permissões não concedidas. Aceite-as para usar todas as funcionalidades.</string>
 </resources>

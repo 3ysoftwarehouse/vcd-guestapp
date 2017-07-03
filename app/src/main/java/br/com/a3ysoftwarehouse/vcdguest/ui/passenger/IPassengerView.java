@@ -1,5 +1,7 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.passenger;
 
+import java.io.File;
+
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.IBaseView;
 
@@ -11,4 +13,8 @@ public interface IPassengerView extends IBaseView {
     void showPassengerData(Passenger passenger);
 
     void finishActivity();
+
+    void openAdobeReader(File file);
+
+    void checkPermission();
 }
