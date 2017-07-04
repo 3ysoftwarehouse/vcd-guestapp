@@ -9,10 +9,10 @@ import java.util.List;
 
 public class NfcIdObserver {
     private static volatile NfcIdObserver instance;
-    private static List<INfcTagIdListener> listenerList;
+    private static List<INfcTagIdListener> mListenerList;
 
     private NfcIdObserver() {
-        listenerList = new ArrayList<>();
+        mListenerList = new ArrayList<>();
     }
 
     public static NfcIdObserver getInstance() {
@@ -28,17 +28,17 @@ public class NfcIdObserver {
     }
 
     public void subscribe(INfcTagIdListener listener) {
-        listenerList.add(listener);
+        mListenerList.add(listener);
     }
 
     public void notifyListeners(String tag) {
-        for (INfcTagIdListener listener : listenerList) {
+        for (INfcTagIdListener listener : mListenerList) {
             listener.onNewTag(tag);
         }
     }
 
     public void unsubscribe(INfcTagIdListener listener) {
-        listenerList.remove(listener);
+        mListenerList.remove(listener);
     }
 
     public interface INfcTagIdListener {

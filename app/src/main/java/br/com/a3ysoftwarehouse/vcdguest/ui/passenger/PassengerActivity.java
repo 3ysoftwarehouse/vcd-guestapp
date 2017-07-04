@@ -12,8 +12,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,7 +71,7 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
     //    @BindView(R.id.passenter_codr1_tv) TextView mCodr1Tv;
 //    @BindView(R.id.passenter_codr2_tv) TextView mCodr2Tv;
 //    @BindView(R.id.passenter_codr3_tv) TextView mCodr3Tv;
-    @BindView(R.id.passenger_refeicoes_tv) TextView mRefeicoesTv;
+    @BindView(R.id.passenger_seguro_viagem_tv) TextView mSeguroViagemTv;
     @BindView(R.id.passenger_opcionais_tv) TextView mOpcionaisTv;
     @BindView(R.id.passenger_opcional1_tv) TextView mOpcional1Tv;
     @BindView(R.id.passenger_opcional2_tv) TextView mOpcional2Tv;
@@ -143,7 +143,7 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         mRommates1Tv.setText(passenger.getROMMATE1());
         mRommates2Tv.setText(passenger.getROMMATE2());
         mRommates3Tv.setText(passenger.getROMMATE3());
-        mRefeicoesTv.setText(passenger.getREFEICOES());
+        mSeguroViagemTv.setText(passenger.getREFEICOES());
         mOpcionaisTv.setText(passenger.getOPCIONAIS());
         mOpcional1Tv.setText(passenger.getOPCIONAL1());
         mOpcional2Tv.setText(passenger.getOPCIONAL2());
@@ -172,10 +172,14 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         Uri path = Uri.fromFile(file);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setAction(Intent.ACTION_VIEW);
         intent.setDataAndType(path, "application/pdf");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        startActivity(intent);
+        Intent chooser = Intent.createChooser(intent, "Abrir arquivo");
+
+        startActivity(chooser);
     }
 
     @Override
@@ -188,6 +192,7 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
         if (write != PackageManager.PERMISSION_GRANTED
                 || read != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, GET_PERMISSIONS_REQUEST_CODE);
+
         } else {
             getPresenter().permissionsGranted();
         }

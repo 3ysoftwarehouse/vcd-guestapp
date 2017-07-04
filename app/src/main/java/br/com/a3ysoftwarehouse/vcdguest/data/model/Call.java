@@ -30,4 +30,8 @@ public class Call extends RealmObject {
     public void setPassengersList(RealmList<Passenger> passengersList) {
         this.passengersList = passengersList;
     }
+
+    public void addPassenger(Passenger passenger) {
+        getPassengersList().add(passenger);
+    }
 }

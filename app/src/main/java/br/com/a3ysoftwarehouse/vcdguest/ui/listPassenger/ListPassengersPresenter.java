@@ -1,5 +1,6 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.listPassenger;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -26,12 +27,16 @@ public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
     // Last detected tag time
     private long mLastTagTime;
 
+    private boolean isAttached;
+
     public ListPassengersPresenter(IListPassengersView iListPassengersView) {
         super(iListPassengersView);
     }
 
     @Override
     public void onAttach() {
+        isAttached = true;
+
         NfcIdObserver.getInstance().subscribe(this);
 
         getDataManager().subscribePassengerSync(this);
@@ -45,7 +50,8 @@ public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
 
     @Override
     public void onDettach() {
-        NfcIdObserver.getInstance().subscribe(this);
+        isAttached = false;
+        NfcIdObserver.getInstance().unsubscribe(this);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class ListPassengersPresenter extends BasePresenter<IListPassengersView>
 
     @Override
     public void onNewTag(String tag) {
-        if (canSearchPassenger(tag)) {
+        if (canSearchPassenger(tag) && isAttached) {
             Passenger passenger = getDataManager().getPassengerByTag(tag);
 
             if (passenger != null) {

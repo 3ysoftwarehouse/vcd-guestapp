@@ -375,10 +375,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin"
-                android:text="@string/refeicoes"/>
+                android:text="@string/seguro_viagem"/>
 
             <TextView
-                android:id="@+id/passenger_refeicoes_tv"
+                android:id="@+id/passenger_seguro_viagem_tv"
                 style="@style/textStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

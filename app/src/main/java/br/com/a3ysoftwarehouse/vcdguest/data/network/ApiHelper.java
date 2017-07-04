@@ -59,8 +59,8 @@ public class ApiHelper implements IApiHelper {
     }
 
     @Override
-    public void getPassengerRecord(String url, String dirPath, String fileName,
-                                   final IApiRequestListener<Void> listener) {
+    public void downloadFile(String url, String dirPath, String fileName,
+                             final IApiRequestListener<Void> listener) {
         AndroidNetworking.download(url, dirPath, fileName)
                 .setPriority(Priority.MEDIUM)
                 .build()

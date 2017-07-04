@@ -40,6 +40,7 @@ import butterknife.OnClick;
 public class MakeCallFragment extends BaseFragment<IMakeCallPresenter> implements IMakeCallView {
     // Constants
     private static final String TAG = "MakeCallFragment";
+    private static final int SHOW_TIME = 500;
 
     // Views
     @BindView(R.id.passengers_not_present_rc) RecyclerView mPassengersNotPresentRc;
@@ -149,7 +150,7 @@ public class MakeCallFragment extends BaseFragment<IMakeCallPresenter> implement
             public void run() {
                 dialog.dismiss();
             }
-        }, 2000);
+        }, SHOW_TIME);
     }
 
     @OnClick(R.id.make_call_fab)

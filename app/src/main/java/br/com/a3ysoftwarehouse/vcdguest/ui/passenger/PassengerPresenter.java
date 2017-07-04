@@ -96,7 +96,7 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
 
         mFileName = mPassenger.getPAX().replace(" ", "_") + ".pdf";
 
-        getDataManager().getPassengerRecord(url, Constants.Storage.EXTERNAL_STORAGE, mFileName, this);
+        getDataManager().downloadFile(url, Constants.Storage.EXTERNAL_STORAGE, mFileName, this);
     }
 
     @Override

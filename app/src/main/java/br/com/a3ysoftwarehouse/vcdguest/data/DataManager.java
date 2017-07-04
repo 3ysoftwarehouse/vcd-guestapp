@@ -139,8 +139,8 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public void getPassengerRecord(String url, String dirPath, String fileName,
-                                   IApiRequestListener<Void> listener) {
-        mIApiHelper.getPassengerRecord(url, dirPath, fileName, listener);
+    public void downloadFile(String url, String dirPath, String fileName,
+                             IApiRequestListener<Void> listener) {
+        mIApiHelper.downloadFile(url, dirPath, fileName, listener);
     }
 }

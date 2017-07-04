@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/vcd-guest.iml" filepath="$PROJECT_DIR$/vcd-guest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vcd-guestapp.iml" filepath="$PROJECT_DIR$/vcd-guestapp.iml" />
     </modules>
   </component>
 </project>

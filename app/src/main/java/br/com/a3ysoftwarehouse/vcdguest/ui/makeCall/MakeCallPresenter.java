@@ -1,5 +1,6 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.makeCall;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
     // Passenger clicked.
     private Passenger mClickedPassenger;
 
+    private boolean isAttached;
+
+
     public MakeCallPresenter(IMakeCallView iMakeCallView) {
         super(iMakeCallView);
 
@@ -42,6 +46,8 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
 
     @Override
     public void onAttach() {
+        isAttached = true;
+
         NfcIdObserver.getInstance().subscribe(this);
 
         mCall = new Call();
@@ -51,6 +57,8 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
 
     @Override
     public void onDettach() {
+        isAttached = false;
+
         NfcIdObserver.getInstance().unsubscribe(this);
     }
 
@@ -69,16 +77,20 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
     @Override
     public void onMakeCallBtClick() {
         if (isMakingCall) {
-            if (mCall.getPassengersList().size() == 0) {
-                getView().showToast(Utils.getString(R.string.empty_call_msg));
+            Log.i(TAG, "List size: " + mCall.getPassengersList().size());
 
-            } else {
-                getView().setMakeCallBtPlayIcon();
+            getView().setMakeCallBtPlayIcon();
 
-                isMakingCall = false;
+            isMakingCall = false;
 
-                saveCall();
-            }
+            saveCall();
+
+//            if (mCall.getPassengersList().size() == 0) {
+//                getView().showToast(Utils.getString(R.string.empty_call_msg));
+//
+//            } else {
+//
+//            }
 
         } else {
             getView().setMakeCallSaveIcon();
@@ -111,12 +123,12 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         Passenger passenger = searchPassengerByTag(tag);
 
         if (passenger != null) {
-            mCall.getPassengersList().add(passenger);
+            mCall.addPassenger(passenger);
 
             mPassengerList.remove(passenger);
 
-            getView().showPassengerDialog(passenger);
             getView().setPassengersNotPresentsRcData(mPassengerList);
+            getView().showPassengerDialog(passenger);
         }
     }
 
@@ -124,18 +136,17 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         Passenger passenger = searchPassengerByCod(cod);
 
         if (passenger != null) {
-            mCall.getPassengersList().add(passenger);
+            mCall.addPassenger(passenger);
 
             mPassengerList.remove(passenger);
 
-            getView().showPassengerDialog(passenger);
             getView().setPassengersNotPresentsRcData(mPassengerList);
         }
     }
 
     private Passenger searchPassengerByTag(String tag) {
         for (Passenger p : mPassengerList) {
-            if (p.getTag() != null) {
+            if (p.getTag() != null && !p.getTag().isEmpty()) {
                 if (p.getTag().equals(tag)) {
                     return p;
                 }
@@ -168,6 +179,6 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
 
         mCall = new Call();
 
-        getView().showToast("Chamada salva.");
+        getView().showToast(Utils.getString(R.string.call_saved_msg));
     }
 }
