@@ -35,7 +35,6 @@ public class ListCallFragment extends BaseFragment<IListCallPresenter> implement
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_call, container, false);
         ButterKnife.bind(this, view);
-        setPresenter(new ListCallPresenter(this));
 
         // mCallRc
         LinearLayoutManager listCallLm = new LinearLayoutManager(getActivity());
@@ -51,5 +50,10 @@ public class ListCallFragment extends BaseFragment<IListCallPresenter> implement
     public void setRecyclerViewData(List<Call> data) {
         mListCallAdapter.setData(data);
         mListCallAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected IListCallPresenter initPresenter() {
+        return new ListCallPresenter(this);
     }
 }

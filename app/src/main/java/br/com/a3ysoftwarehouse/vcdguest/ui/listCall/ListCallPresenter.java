@@ -17,11 +17,16 @@ public class ListCallPresenter extends BasePresenter<IListCallView> implements I
 
     @Override
     public void onAttach() {
+
+    }
+
+    @Override
+    public void onResume() {
         getView().setRecyclerViewData(getDataManager().getCall());
     }
 
     @Override
-    public void onDettach() {
+    public void onDetach() {
 
     }
 

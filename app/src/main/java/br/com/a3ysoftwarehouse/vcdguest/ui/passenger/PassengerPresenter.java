@@ -41,7 +41,12 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
     }
 
     @Override
-    public void onDettach() {
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDetach() {
 
     }
 
@@ -63,18 +68,16 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
             Utils.beep(App.getContext());
 
             try {
-                // Update passenger tag
-                getDataManager().updatePassengerTag(mPassenger.getCOD(), tagId);
+                getDataManager().newPassengerTag(mPassenger.getCOD(), tagId);
 
                 registerTag = false;
 
                 getView().showToast(Utils.getString(R.string.registered_tag_msg));
                 getView().showProgress(true);
 
-                mPassenger = getDataManager().getPassengerByCod(mPassenger.getCOD());
+                mPassenger = getDataManager().getPassenger(mPassenger.getCOD());
 
                 getView().showPassengerData(mPassenger);
-                getView().showProgress(false);
                 getView().finishActivity();
 
             } catch (DatabaseException e) {
@@ -90,13 +93,7 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
 
     @Override
     public void permissionsGranted() {
-        getView().showProgress(true);
-
-        String url = Constants.Api.GET_PASSENGER_RECORD + mPassenger.getCOD() + ".pdf";
-
-        mFileName = mPassenger.getPAX().replace(" ", "_") + ".pdf";
-
-        getDataManager().downloadFile(url, Constants.Storage.EXTERNAL_STORAGE, mFileName, this);
+        downloadFile();
     }
 
     @Override
@@ -108,11 +105,21 @@ public class PassengerPresenter extends BasePresenter<IPassengerView>
     @Override
     public void onSuccess(Void aVoid) {
         getView().showProgress(false);
-        getView().openAdobeReader(new File(Constants.Storage.EXTERNAL_STORAGE + "/" + mFileName));
+        getView().openPdfIntent(new File(Constants.Storage.MEDICAL_RECORD_PATH + "/" + mFileName));
     }
 
     @Override
     public void onFailed() {
         getView().showProgress(false);
+    }
+
+    private void downloadFile() {
+        getView().showProgress(true);
+
+        String url = Constants.Api.GET_PASSENGER_RECORD + mPassenger.getCOD() + ".pdf";
+
+        mFileName = mPassenger.getPAX().replace(" ", "_") + ".pdf";
+
+        getDataManager().downloadFile(url, Constants.Storage.MEDICAL_RECORD_PATH, mFileName, this);
     }
 }

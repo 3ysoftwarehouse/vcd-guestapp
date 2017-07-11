@@ -2,6 +2,7 @@ package br.com.a3ysoftwarehouse.vcdguest.ui.base;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.util.Log;
 
 import be.appfoundry.nfclibrary.activities.NfcActivity;
 
@@ -22,6 +23,11 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.i(TAG, "onAttach()");
+
+        mPresenter = initPresenter();
+
+        if (mPresenter != null) mPresenter.onAttach();
 
         if (context instanceof NfcActivity) mActivity = (BaseNfcActivity) context;
     }
@@ -29,15 +35,17 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
     @Override
     public void onResume() {
         super.onResume();
+        Log.i(TAG, "onResume()");
 
-        mPresenter.onAttach();
+        if (mPresenter != null) mPresenter.onResume();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.i(TAG, "onDetach()");
 
-        mPresenter.onDettach();
+        if (mPresenter != null) mPresenter.onDetach();
     }
 
     @Override
@@ -68,7 +76,5 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
         return mPresenter;
     }
 
-    protected void setPresenter(T t) {
-        mPresenter = t;
-    }
+    protected abstract T initPresenter();
 }

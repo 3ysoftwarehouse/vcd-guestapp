@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -25,7 +26,9 @@ import java.io.File;
 
 import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.app.App;
+import br.com.a3ysoftwarehouse.vcdguest.data.DataManager;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
+import br.com.a3ysoftwarehouse.vcdguest.data.model.Tag;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BaseNfcActivity;
 import br.com.a3ysoftwarehouse.vcdguest.util.Constants;
 import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
@@ -46,7 +49,6 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
     // Views
     @BindView(R.id.passenger_tag_tv) TextView mTagTv;
     @BindView(R.id.passenger_cod_tv) TextView mCodTv;
-    //    @BindView(R.id.passenter_data_tv) TextView mDataTv;
     @BindView(R.id.passenger_pax_tv) TextView mPaxTv;
     @BindView(R.id.passenger_quarto_tv) TextView mQuartoTv;
     @BindView(R.id.passenger_voo_tv) TextView mVooTv;
@@ -64,13 +66,9 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
     @BindView(R.id.passenger_resppax_tv) TextView mRespPaxTv;
     @BindView(R.id.passenger_foneresp_tv) TextView mFoneRespTv;
     @BindView(R.id.passenger_emailresp_tv) TextView mEmailRespTv;
-    //    @BindView(R.id.passenter_rommates_tv) TextView mRommatesTv;
     @BindView(R.id.passenger_rommates1_tv) TextView mRommates1Tv;
     @BindView(R.id.passenger_rommates2_tv) TextView mRommates2Tv;
     @BindView(R.id.passenger_rommates3_tv) TextView mRommates3Tv;
-    //    @BindView(R.id.passenter_codr1_tv) TextView mCodr1Tv;
-//    @BindView(R.id.passenter_codr2_tv) TextView mCodr2Tv;
-//    @BindView(R.id.passenter_codr3_tv) TextView mCodr3Tv;
     @BindView(R.id.passenger_seguro_viagem_tv) TextView mSeguroViagemTv;
     @BindView(R.id.passenger_opcionais_tv) TextView mOpcionaisTv;
     @BindView(R.id.passenger_opcional1_tv) TextView mOpcional1Tv;
@@ -85,24 +83,32 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
     @BindView(R.id.passenger_tb) Toolbar mPassengerTb;
     @BindView(R.id.profile_img) ImageView mProfileImg;
 
+    // Passenger
+    private Passenger mPassenger;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger);
         ButterKnife.bind(this);
 
-        // Get passenger.
-        Passenger passenger = getIntent().getParcelableExtra(Constants.Keys.PASSENGER);
-        setPresenter(new PassengerPresenter(this, passenger));
-
         // Toolbar
-        mPassengerTb.setTitle(passenger.getPAX());
+        mPassengerTb.setTitle(mPassenger.getPAX());
         mPassengerTb.setTitleTextColor(getResources().getColor(R.color.white));
 
         setSupportActionBar(mPassengerTb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        showPassengerData(passenger);
+        showPassengerData(mPassenger);
+    }
+
+    @Override
+    protected IPassengerPresenter initPresenter() {
+        String paxCod = getIntent().getStringExtra(Constants.Keys.PASSENGER);
+        mPassenger = DataManager.getInstance().getPassenger(paxCod);
+
+        return new PassengerPresenter(this, mPassenger);
     }
 
     @Override
@@ -120,8 +126,15 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
                         .sizeDp(24))
                 .into(mProfileImg);
 
+        // Tag text
+        String tagTxt = "";
+
+        for (Tag t : passenger.getTagList()) {
+            tagTxt += t.getTag() + "\n";
+        }
+
         // Data
-        mTagTv.setText((passenger.getTag() != null) ? passenger.getTag() : "");
+        mTagTv.setText(tagTxt);
         mCodTv.setText(passenger.getCOD());
         mPaxTv.setText(passenger.getPAX());
         mQuartoTv.setText(passenger.getQUARTO());
@@ -168,8 +181,10 @@ public class PassengerActivity extends BaseNfcActivity<IPassengerPresenter>
     }
 
     @Override
-    public void openAdobeReader(File file) {
-        Uri path = Uri.fromFile(file);
+    public void openPdfIntent(File file) {
+        Uri path = FileProvider.getUriForFile(
+                this, this.getApplicationContext().getPackageName() + ".my.package.name.provider",
+                file);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setAction(Intent.ACTION_VIEW);

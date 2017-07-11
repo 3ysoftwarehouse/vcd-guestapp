@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,6 @@ public class ListPassengersFragment extends BaseFragment<IListPassengersPresente
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_passengers, container, false);
         ButterKnife.bind(this, view);
-        setPresenter(new ListPassengersPresenter(this));
 
         // mListPassengersRc
         mListPassengersRc.setHasFixedSize(true);
@@ -81,8 +79,13 @@ public class ListPassengersFragment extends BaseFragment<IListPassengersPresente
     @Override
     public void openPassengerActivity(Passenger passenger) {
         Intent i = new Intent(mMainActivity, PassengerActivity.class);
-        i.putExtra(Constants.Keys.PASSENGER, passenger);
+        i.putExtra(Constants.Keys.PASSENGER, passenger.getCOD());
 
         startActivity(i);
+    }
+
+    @Override
+    protected IListPassengersPresenter initPresenter() {
+        return new ListPassengersPresenter(this);
     }
 }

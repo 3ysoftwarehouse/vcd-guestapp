@@ -14,7 +14,7 @@ public interface IPassengerView extends IBaseView {
 
     void finishActivity();
 
-    void openAdobeReader(File file);
+    void openPdfIntent(File file);
 
     void checkPermission();
 }

@@ -7,19 +7,19 @@ import java.util.List;
  * Created by Iago Belo on 23/06/2017.
  */
 
-public class NfcIdObserver {
-    private static volatile NfcIdObserver instance;
-    private static List<INfcTagIdListener> mListenerList;
+public class NfcIdObservable {
+    private static volatile NfcIdObservable instance;
+    private static volatile List<INfcTagIdObserver> mListenerList;
 
-    private NfcIdObserver() {
+    private NfcIdObservable() {
         mListenerList = new ArrayList<>();
     }
 
-    public static NfcIdObserver getInstance() {
+    public static NfcIdObservable getInstance() {
         if (instance == null) {
-            synchronized (NfcIdObserver.class) {
+            synchronized (NfcIdObservable.class) {
                 if (instance == null) {
-                    instance = new NfcIdObserver();
+                    instance = new NfcIdObservable();
                 }
             }
         }
@@ -27,21 +27,21 @@ public class NfcIdObserver {
         return instance;
     }
 
-    public void subscribe(INfcTagIdListener listener) {
+    public void subscribe(INfcTagIdObserver listener) {
         mListenerList.add(listener);
     }
 
     public void notifyListeners(String tag) {
-        for (INfcTagIdListener listener : mListenerList) {
+        for (INfcTagIdObserver listener : mListenerList) {
             listener.onNewTag(tag);
         }
     }
 
-    public void unsubscribe(INfcTagIdListener listener) {
+    public synchronized void unsubscribe(INfcTagIdObserver listener) {
         mListenerList.remove(listener);
     }
 
-    public interface INfcTagIdListener {
+    public interface INfcTagIdObserver {
         void onNewTag(String tag);
     }
 }

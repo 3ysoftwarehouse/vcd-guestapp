@@ -1,8 +1,7 @@
 package br.com.a3ysoftwarehouse.vcdguest.data;
 
-import android.util.Log;
+import com.androidnetworking.AndroidNetworking;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.a3ysoftwarehouse.vcdguest.app.App;
@@ -10,9 +9,14 @@ import br.com.a3ysoftwarehouse.vcdguest.data.database.DbHelper;
 import br.com.a3ysoftwarehouse.vcdguest.data.database.IDbHelper;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Call;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Passenger;
+import br.com.a3ysoftwarehouse.vcdguest.data.model.Tag;
 import br.com.a3ysoftwarehouse.vcdguest.data.network.ApiHelper;
 import br.com.a3ysoftwarehouse.vcdguest.data.network.IApiHelper;
+import br.com.a3ysoftwarehouse.vcdguest.data.preferences.IPreferencesHelper;
+import br.com.a3ysoftwarehouse.vcdguest.data.preferences.PreferencesHelper;
 import br.com.a3ysoftwarehouse.vcdguest.exception.DatabaseException;
+import br.com.a3ysoftwarehouse.vcdguest.observer.BackupTagObservable;
+import br.com.a3ysoftwarehouse.vcdguest.observer.RestoreTagObservable;
 
 /**
  * Created by Iago Belo on 21/06/17.
@@ -21,23 +25,33 @@ import br.com.a3ysoftwarehouse.vcdguest.exception.DatabaseException;
 public class DataManager implements IDataManager {
     // Constants
     private static final String TAG = "DataManager";
+    private static final String USER_PREFS_NAME = "user_prefs";
 
     // Instance
     private static volatile IDataManager instance;
 
+    // PreferencesHelper
+    private final IPreferencesHelper mIPreferencesHelper;
+
     // ApiHelper
-    private IApiHelper mIApiHelper;
+    private final IApiHelper mIApiHelper;
 
     // DbHelper
-    private IDbHelper mIDbHelper;
+    private final IDbHelper mIDbHelper;
 
-    // Observer List
-    private List<ISyncListener> mISyncListeners;
+    // Observables
+    private BackupTagObservable mBackupTagObservable;
+    private RestoreTagObservable mRestoreTagObservable;
 
     private DataManager() {
         mIApiHelper = new ApiHelper(App.getContext());
         mIDbHelper = new DbHelper(App.getContext());
-        mISyncListeners = new ArrayList<>();
+        mIPreferencesHelper = new PreferencesHelper(App.getContext(), USER_PREFS_NAME);
+
+        AndroidNetworking.initialize(App.getContext());
+
+        mBackupTagObservable = BackupTagObservable.getInstance();
+        mRestoreTagObservable = RestoreTagObservable.getInstance();
     }
 
     public static IDataManager getInstance() {
@@ -52,55 +66,63 @@ public class DataManager implements IDataManager {
         return instance;
     }
 
-    private void notifyOnSyncSuccess() {
-        for (ISyncListener i : mISyncListeners) {
-            i.onSuccess();
-        }
-    }
-
-    private void notifyOnSyncFailed() {
-        for (ISyncListener i : mISyncListeners) {
-            i.onFailed();
-        }
-    }
-
     @Override
-    public void syncPassengers() {
+    public void syncPassengers(final ISyncListener listener) {
         mIApiHelper.getPassengers(new IApiHelper.IApiRequestListener<List<Passenger>>() {
             @Override
             public void onSuccess(List<Passenger> passengerList) {
                 mIDbHelper.savePassengers(passengerList);
 
-                notifyOnSyncSuccess();
+                listener.onSuccess();
             }
 
             @Override
             public void onFailed() {
-                Log.e(TAG, "Erro ao sincronizar passageiros.");
-
-                notifyOnSyncFailed();
+                listener.onFailed();
             }
         });
     }
 
     @Override
-    public void subscribePassengerSync(ISyncListener listener) {
-        mISyncListeners.add(listener);
+    public void restoreTagsFromServer(final ISyncListener listener) {
+        mIApiHelper.restoreTags(new IApiRequestListener<List<Tag>>() {
+            @Override
+            public void onSuccess(List<Tag> tags) {
+                mIDbHelper.saveTags(tags);
+
+                mRestoreTagObservable.notifyListenersOnSuccess();
+            }
+
+            @Override
+            public void onFailed() {
+                mRestoreTagObservable.notifyListenersOnFailed();
+            }
+        });
     }
 
     @Override
-    public void unsubscribePassengerSync(ISyncListener listener) {
-        mISyncListeners.remove(listener);
+    public void backupTagsToServer(final ISyncListener listener) {
+        mIApiHelper.backupTags(mIDbHelper.getAllTags(), new IApiRequestListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mBackupTagObservable.notifyListenersOnSuccess();
+            }
+
+            @Override
+            public void onFailed() {
+                mBackupTagObservable.notifyListenersOnFailed();
+            }
+        });
     }
 
     @Override
-    public List<Passenger> getPassengerByCod() {
-        return mIDbHelper.getPassengerByCod();
+    public List<Passenger> getPassenger() {
+        return mIDbHelper.getPassenger();
     }
 
     @Override
-    public Passenger getPassengerByCod(String cod) {
-        return mIDbHelper.getPassengerByCod(cod);
+    public Passenger getPassenger(String cod) {
+        return mIDbHelper.getPassenger(cod);
     }
 
     @Override
@@ -114,8 +136,13 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public void updatePassengerTag(String cod, String tag) throws DatabaseException {
-        mIDbHelper.updatePassengerTag(cod, tag);
+    public void newPassengerTag(String cod, String tag) throws DatabaseException {
+        mIDbHelper.newPassengerTag(cod, tag);
+    }
+
+    @Override
+    public List<Tag> getPassengerTags(String cod) {
+        return mIDbHelper.getPassengerTags(cod);
     }
 
     @Override
@@ -134,13 +161,43 @@ public class DataManager implements IDataManager {
     }
 
     @Override
+    public List<Tag> getAllTags() {
+        return mIDbHelper.getAllTags();
+    }
+
+    @Override
+    public void saveTags(List<Tag> tagList) {
+        mIDbHelper.saveTags(tagList);
+    }
+
+    @Override
     public void getPassengers(IApiRequestListener<List<Passenger>> listener) {
         mIApiHelper.getPassengers(listener);
+    }
+
+    @Override
+    public void restoreTags(IApiRequestListener<List<Tag>> listener) {
+        mIApiHelper.restoreTags(listener);
+    }
+
+    @Override
+    public void backupTags(List<Tag> tagList, IApiRequestListener<Void> listener) {
+        mIApiHelper.backupTags(tagList, listener);
     }
 
     @Override
     public void downloadFile(String url, String dirPath, String fileName,
                              IApiRequestListener<Void> listener) {
         mIApiHelper.downloadFile(url, dirPath, fileName, listener);
+    }
+
+    @Override
+    public boolean getIsLogged() {
+        return mIPreferencesHelper.getIsLogged();
+    }
+
+    @Override
+    public void setIsLogged(boolean isLogged) {
+        mIPreferencesHelper.setIsLogged(isLogged);
     }
 }

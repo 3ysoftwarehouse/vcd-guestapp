@@ -7,5 +7,7 @@ package br.com.a3ysoftwarehouse.vcdguest.ui.base;
 public interface IBasePresenter {
     void onAttach();
 
-    void onDettach();
+    void onResume();
+
+    void onDetach();
 }

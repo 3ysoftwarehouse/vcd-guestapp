@@ -24,7 +24,7 @@
                 style="@style/textStyleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tag"/>
+                android:text="@string/tagAmmount"/>
 
             <TextView
                 android:id="@+id/passenger_tag_tv"

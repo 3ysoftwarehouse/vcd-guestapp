@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sync_passengers_item"
+        android:title="@string/sync_passsengers"/>
+
+    <item
+        android:id="@+id/tag_backup_item"
+        android:title="@string/tag_backup"/>
+
+    <item
+        android:id="@+id/restore_tag_item"
+        android:title="@string/restore_tag"/>
+</menu>

@@ -9,10 +9,10 @@ import io.realm.RealmObject;
 
 public class Call extends RealmObject {
     private long id;
-    private RealmList<Passenger> passengersList;
+    private RealmList<Item> items;
 
     public Call() {
-        passengersList = new RealmList<>();
+        items = new RealmList<>();
     }
 
     public long getId() {
@@ -23,15 +23,15 @@ public class Call extends RealmObject {
         this.id = id;
     }
 
-    public RealmList<Passenger> getPassengersList() {
-        return passengersList;
+    public RealmList<Item> getItems() {
+        return items;
     }
 
-    public void setPassengersList(RealmList<Passenger> passengersList) {
-        this.passengersList = passengersList;
+    public void setItems(RealmList<Item> items) {
+        this.items = items;
     }
 
-    public void addPassenger(Passenger passenger) {
-        getPassengersList().add(passenger);
+    public void addItem(Item item) {
+        getItems().add(item);
     }
 }

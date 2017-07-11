@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="medical_records"
+        path="."/>
+
+    <external-files-path
+        name="medical_records2"
+        path="."/>
+</paths>

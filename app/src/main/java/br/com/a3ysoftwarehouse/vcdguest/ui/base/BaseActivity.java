@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,20 +34,24 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPresenter = initPresenter();
+
+        if (mPresenter != null) mPresenter.onAttach();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if(mPresenter != null) mPresenter.onAttach();
+        if (mPresenter != null) mPresenter.onResume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        if(mPresenter != null) mPresenter.onDettach();
+        if (mPresenter != null) mPresenter.onDetach();
     }
 
     private ProgressDialog showLoadingDialog(Context context) {
@@ -82,10 +85,8 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         if (show) {
             mProgressDialog = showLoadingDialog(this);
 
-        } else {
-            if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                mProgressDialog.cancel();
-            }
+        } else if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
         }
     }
 
@@ -105,7 +106,5 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         return mPresenter;
     }
 
-    protected void setPresenter(T t) {
-        mPresenter = t;
-    }
+    protected abstract T initPresenter();
 }

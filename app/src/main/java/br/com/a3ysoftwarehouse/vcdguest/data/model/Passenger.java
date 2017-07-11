@@ -3,6 +3,7 @@ package br.com.a3ysoftwarehouse.vcdguest.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -11,6 +12,17 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Passenger extends RealmObject implements Parcelable {
+    public static final Parcelable.Creator<Passenger> CREATOR = new Parcelable.Creator<Passenger>() {
+        @Override
+        public Passenger createFromParcel(Parcel source) {
+            return new Passenger(source);
+        }
+
+        @Override
+        public Passenger[] newArray(int size) {
+            return new Passenger[size];
+        }
+    };
     @PrimaryKey
     private String COD;
     private String DATA;
@@ -47,9 +59,50 @@ public class Passenger extends RealmObject implements Parcelable {
     private String OPCIONAL5;
     private String OPCIONAL6;
     private String OPCIONAL7;
-    private String tag;
+    private RealmList<Tag> tagList;
 
     public Passenger() {
+        tagList = new RealmList<>();
+    }
+
+    protected Passenger(Parcel in) {
+        this.tagList = new RealmList<>();
+        in.readList(this.tagList, Tag.class.getClassLoader());
+        this.COD = in.readString();
+        this.DATA = in.readString();
+        this.PAX = in.readString();
+        this.QUARTO = in.readString();
+        this.VOO = in.readString();
+        this.LOC = in.readString();
+        this.ETKT = in.readString();
+        this.CIA = in.readString();
+        this.GRUPO = in.readString();
+        this.EMISSOR = in.readString();
+        this.AGENCIA = in.readString();
+        this.ESCOLA = in.readString();
+        this.SEXO = in.readString();
+        this.DATANASCIMENTO = in.readString();
+        this.CELPAX = in.readString();
+        this.EMAILPAX = in.readString();
+        this.RESPPAX = in.readString();
+        this.FONERESP = in.readString();
+        this.EMAILRESP = in.readString();
+        this.ROMMATES = in.readString();
+        this.ROMMATE1 = in.readString();
+        this.ROMMATE2 = in.readString();
+        this.ROMMATE3 = in.readString();
+        this.CODR1 = in.readString();
+        this.CODR2 = in.readString();
+        this.CODR3 = in.readString();
+        this.REFEICOES = in.readString();
+        this.OPCIONAIS = in.readString();
+        this.OPCIONAL1 = in.readString();
+        this.OPCIONAL2 = in.readString();
+        this.OPCIONAL3 = in.readString();
+        this.OPCIONAL4 = in.readString();
+        this.OPCIONAL5 = in.readString();
+        this.OPCIONAL6 = in.readString();
+        this.OPCIONAL7 = in.readString();
     }
 
     public String getCOD() {
@@ -332,54 +385,12 @@ public class Passenger extends RealmObject implements Parcelable {
         this.OPCIONAL7 = OPCIONAL7;
     }
 
-    public String getTag() {
-        return tag;
+    public RealmList<Tag> getTagList() {
+        return tagList;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    @Override
-    public String toString() {
-        return "Passenger{" +
-                "COD='" + COD + '\'' +
-                ", DATA='" + DATA + '\'' +
-                ", PAX='" + PAX + '\'' +
-                ", QUARTO='" + QUARTO + '\'' +
-                ", VOO='" + VOO + '\'' +
-                ", LOC='" + LOC + '\'' +
-                ", ETKT='" + ETKT + '\'' +
-                ", CIA='" + CIA + '\'' +
-                ", GRUPO='" + GRUPO + '\'' +
-                ", EMISSOR='" + EMISSOR + '\'' +
-                ", AGENCIA='" + AGENCIA + '\'' +
-                ", ESCOLA='" + ESCOLA + '\'' +
-                ", SEXO='" + SEXO + '\'' +
-                ", DATANASCIMENTO='" + DATANASCIMENTO + '\'' +
-                ", CELPAX='" + CELPAX + '\'' +
-                ", EMAILPAX='" + EMAILPAX + '\'' +
-                ", RESPPAX='" + RESPPAX + '\'' +
-                ", FONERESP='" + FONERESP + '\'' +
-                ", EMAILRESP='" + EMAILRESP + '\'' +
-                ", ROMMATES='" + ROMMATES + '\'' +
-                ", ROMMATE1='" + ROMMATE1 + '\'' +
-                ", ROMMATE2='" + ROMMATE2 + '\'' +
-                ", ROMMATE3='" + ROMMATE3 + '\'' +
-                ", CODR1='" + CODR1 + '\'' +
-                ", CODR2='" + CODR2 + '\'' +
-                ", CODR3='" + CODR3 + '\'' +
-                ", REFEICOES='" + REFEICOES + '\'' +
-                ", OPCIONAIS='" + OPCIONAIS + '\'' +
-                ", OPCIONAL1='" + OPCIONAL1 + '\'' +
-                ", OPCIONAL2='" + OPCIONAL2 + '\'' +
-                ", OPCIONAL3='" + OPCIONAL3 + '\'' +
-                ", OPCIONAL4='" + OPCIONAL4 + '\'' +
-                ", OPCIONAL5='" + OPCIONAL5 + '\'' +
-                ", OPCIONAL6='" + OPCIONAL6 + '\'' +
-                ", OPCIONAL7='" + OPCIONAL7 + '\'' +
-                ", tag='" + tag + '\'' +
-                '}';
+    public void setTagList(RealmList<Tag> tagList) {
+        this.tagList = tagList;
     }
 
     @Override
@@ -389,6 +400,7 @@ public class Passenger extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeList(this.tagList);
         dest.writeString(this.COD);
         dest.writeString(this.DATA);
         dest.writeString(this.PAX);
@@ -424,57 +436,5 @@ public class Passenger extends RealmObject implements Parcelable {
         dest.writeString(this.OPCIONAL5);
         dest.writeString(this.OPCIONAL6);
         dest.writeString(this.OPCIONAL7);
-        dest.writeString(this.tag);
     }
-
-    protected Passenger(Parcel in) {
-        this.COD = in.readString();
-        this.DATA = in.readString();
-        this.PAX = in.readString();
-        this.QUARTO = in.readString();
-        this.VOO = in.readString();
-        this.LOC = in.readString();
-        this.ETKT = in.readString();
-        this.CIA = in.readString();
-        this.GRUPO = in.readString();
-        this.EMISSOR = in.readString();
-        this.AGENCIA = in.readString();
-        this.ESCOLA = in.readString();
-        this.SEXO = in.readString();
-        this.DATANASCIMENTO = in.readString();
-        this.CELPAX = in.readString();
-        this.EMAILPAX = in.readString();
-        this.RESPPAX = in.readString();
-        this.FONERESP = in.readString();
-        this.EMAILRESP = in.readString();
-        this.ROMMATES = in.readString();
-        this.ROMMATE1 = in.readString();
-        this.ROMMATE2 = in.readString();
-        this.ROMMATE3 = in.readString();
-        this.CODR1 = in.readString();
-        this.CODR2 = in.readString();
-        this.CODR3 = in.readString();
-        this.REFEICOES = in.readString();
-        this.OPCIONAIS = in.readString();
-        this.OPCIONAL1 = in.readString();
-        this.OPCIONAL2 = in.readString();
-        this.OPCIONAL3 = in.readString();
-        this.OPCIONAL4 = in.readString();
-        this.OPCIONAL5 = in.readString();
-        this.OPCIONAL6 = in.readString();
-        this.OPCIONAL7 = in.readString();
-        this.tag = in.readString();
-    }
-
-    public static final Parcelable.Creator<Passenger> CREATOR = new Parcelable.Creator<Passenger>() {
-        @Override
-        public Passenger createFromParcel(Parcel source) {
-            return new Passenger(source);
-        }
-
-        @Override
-        public Passenger[] newArray(int size) {
-            return new Passenger[size];
-        }
-    };
 }

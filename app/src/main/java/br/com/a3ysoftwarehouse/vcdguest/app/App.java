@@ -31,12 +31,5 @@ public class App extends Application {
         super.onCreate();
 
         instance = this;
-
-        // Sync Passengers
-        mIDataManager = DataManager.getInstance();
-        mIDataManager.syncPassengers();
-
-        // Android Networking Init
-        AndroidNetworking.initialize(this);
     }
 }

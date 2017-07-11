@@ -27,7 +27,7 @@ import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
 public class ListPassengerAdapter extends RecyclerView.Adapter<ListPassengerAdapter.ViewHolder> {
     public static final int LINEAR = 0;
     public static final int GRID = 1;
-    private static final String TAG = "ListCallAdapter";
+    private static final String TAG = "ListPassengerAdapter";
     private static IRecyclerViewOnClickListener<Passenger> mListener;
     private static List<Passenger> mPassengerList;
     private static int mType = LINEAR;
@@ -82,7 +82,7 @@ public class ListPassengerAdapter extends RecyclerView.Adapter<ListPassengerAdap
                         .into(holder.passengerProfileIv);
 
                 // Se houver tag, exibe o icone.
-                if (p.getTag() == null || p.getTag().isEmpty()) {
+                if (p.getTagList() == null || p.getTagList().isEmpty()) {
                     holder.tagIv.setVisibility(View.GONE);
 
                 } else {

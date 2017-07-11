@@ -7,4 +7,9 @@ import br.com.a3ysoftwarehouse.vcdguest.ui.base.IBasePresenter;
  */
 
 public interface IMainPresenter extends IBasePresenter {
+    void onSyncPassengersItemClick();
+
+    void onTagBackupItemClick();
+
+    void onRestoreTagItemClick();
 }

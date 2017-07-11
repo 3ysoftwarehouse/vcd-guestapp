@@ -34,20 +34,22 @@ public abstract class BaseNfcActivity<T extends IBasePresenter> extends NfcActiv
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPresenter = initPresenter();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        mPresenter.onAttach();
+        mPresenter.onResume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        mPresenter.onDettach();
+        mPresenter.onDetach();
     }
 
     private ProgressDialog showLoadingDialog(Context context) {
@@ -81,10 +83,8 @@ public abstract class BaseNfcActivity<T extends IBasePresenter> extends NfcActiv
         if (show) {
             mProgressDialog = showLoadingDialog(this);
 
-        } else {
-            if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                mProgressDialog.cancel();
-            }
+        } else if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
         }
     }
 
@@ -100,11 +100,9 @@ public abstract class BaseNfcActivity<T extends IBasePresenter> extends NfcActiv
         snackbar.show();
     }
 
-    protected void setPresenter(T t) {
-        this.mPresenter = t;
-    }
-
     protected T getPresenter() {
         return mPresenter;
     }
+
+    protected abstract T initPresenter();
 }

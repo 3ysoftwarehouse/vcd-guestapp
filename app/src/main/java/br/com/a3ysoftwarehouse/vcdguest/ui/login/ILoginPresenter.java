@@ -7,4 +7,5 @@ import br.com.a3ysoftwarehouse.vcdguest.ui.base.IBasePresenter;
  */
 
 public interface ILoginPresenter extends IBasePresenter {
+    void onSignInBtClick(String user, String password);
 }

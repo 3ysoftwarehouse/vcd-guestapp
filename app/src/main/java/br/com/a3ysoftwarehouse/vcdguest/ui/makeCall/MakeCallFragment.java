@@ -56,7 +56,6 @@ public class MakeCallFragment extends BaseFragment<IMakeCallPresenter> implement
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_make_call, container, false);
         ButterKnife.bind(this, view);
-        setPresenter(new MakeCallPresenter(this));
 
         // Set initial icon
         mMakeCallFab.setImageBitmap(new IconicsDrawable(getActivity())
@@ -156,5 +155,10 @@ public class MakeCallFragment extends BaseFragment<IMakeCallPresenter> implement
     @OnClick(R.id.make_call_fab)
     public void onMakeCallBtClick() {
         getPresenter().onMakeCallBtClick();
+    }
+
+    @Override
+    protected IMakeCallPresenter initPresenter() {
+        return new MakeCallPresenter(this);
     }
 }
