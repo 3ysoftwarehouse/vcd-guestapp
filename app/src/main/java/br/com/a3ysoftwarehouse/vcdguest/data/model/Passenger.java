@@ -394,6 +394,48 @@ public class Passenger extends RealmObject implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "Passenger{" +
+                "COD='" + COD + '\'' +
+                ", DATA='" + DATA + '\'' +
+                ", PAX='" + PAX + '\'' +
+                ", QUARTO='" + QUARTO + '\'' +
+                ", VOO='" + VOO + '\'' +
+                ", LOC='" + LOC + '\'' +
+                ", ETKT='" + ETKT + '\'' +
+                ", CIA='" + CIA + '\'' +
+                ", GRUPO='" + GRUPO + '\'' +
+                ", EMISSOR='" + EMISSOR + '\'' +
+                ", AGENCIA='" + AGENCIA + '\'' +
+                ", ESCOLA='" + ESCOLA + '\'' +
+                ", SEXO='" + SEXO + '\'' +
+                ", DATANASCIMENTO='" + DATANASCIMENTO + '\'' +
+                ", CELPAX='" + CELPAX + '\'' +
+                ", EMAILPAX='" + EMAILPAX + '\'' +
+                ", RESPPAX='" + RESPPAX + '\'' +
+                ", FONERESP='" + FONERESP + '\'' +
+                ", EMAILRESP='" + EMAILRESP + '\'' +
+                ", ROMMATES='" + ROMMATES + '\'' +
+                ", ROMMATE1='" + ROMMATE1 + '\'' +
+                ", ROMMATE2='" + ROMMATE2 + '\'' +
+                ", ROMMATE3='" + ROMMATE3 + '\'' +
+                ", CODR1='" + CODR1 + '\'' +
+                ", CODR2='" + CODR2 + '\'' +
+                ", CODR3='" + CODR3 + '\'' +
+                ", REFEICOES='" + REFEICOES + '\'' +
+                ", OPCIONAIS='" + OPCIONAIS + '\'' +
+                ", OPCIONAL1='" + OPCIONAL1 + '\'' +
+                ", OPCIONAL2='" + OPCIONAL2 + '\'' +
+                ", OPCIONAL3='" + OPCIONAL3 + '\'' +
+                ", OPCIONAL4='" + OPCIONAL4 + '\'' +
+                ", OPCIONAL5='" + OPCIONAL5 + '\'' +
+                ", OPCIONAL6='" + OPCIONAL6 + '\'' +
+                ", OPCIONAL7='" + OPCIONAL7 + '\'' +
+                ", tagList=" + tagList +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

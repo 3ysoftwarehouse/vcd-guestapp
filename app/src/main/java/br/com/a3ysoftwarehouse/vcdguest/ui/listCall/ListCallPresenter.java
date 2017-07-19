@@ -32,6 +32,6 @@ public class ListCallPresenter extends BasePresenter<IListCallView> implements I
 
     @Override
     public void onItemClick(View view, int position, Call call) {
-
+        getView().openCallActivity(call);
     }
 }

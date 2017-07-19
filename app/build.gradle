@@ -41,7 +41,7 @@ dependencies {
     compile 'com.amitshekhar.android:android-networking:1.0.0'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

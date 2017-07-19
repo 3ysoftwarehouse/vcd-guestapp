@@ -1,5 +1,6 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.listCall;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import java.util.List;
 import br.com.a3ysoftwarehouse.vcdguest.R;
 import br.com.a3ysoftwarehouse.vcdguest.data.model.Call;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BaseFragment;
+import br.com.a3ysoftwarehouse.vcdguest.ui.call.CallActivity;
 import br.com.a3ysoftwarehouse.vcdguest.ui.listCall.adapter.ListCallAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +52,14 @@ public class ListCallFragment extends BaseFragment<IListCallPresenter> implement
     public void setRecyclerViewData(List<Call> data) {
         mListCallAdapter.setData(data);
         mListCallAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void openCallActivity(Call call) {
+        Intent intent = new Intent(getActivity(), CallActivity.class);
+        intent.putExtra("call", call.getId());
+
+        startActivity(intent);
     }
 
     @Override

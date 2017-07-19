@@ -11,4 +11,6 @@ import br.com.a3ysoftwarehouse.vcdguest.ui.base.IBaseView;
 
 public interface IListCallView extends IBaseView {
     void setRecyclerViewData(List<Call> data);
+
+    void openCallActivity(Call call);
 }

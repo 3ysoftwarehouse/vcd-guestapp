@@ -1,11 +1,9 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.splash;
 
-import android.support.annotation.NonNull;
-
 import br.com.a3ysoftwarehouse.vcdguest.R;
-import br.com.a3ysoftwarehouse.vcdguest.app.App;
 import br.com.a3ysoftwarehouse.vcdguest.data.IDataManager;
 import br.com.a3ysoftwarehouse.vcdguest.ui.base.BasePresenter;
+import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
 
 /**
  * Created by Iago Belo on 06/07/17.
@@ -46,14 +44,9 @@ public class SplashPresenter extends BasePresenter<ISplashView> implements ISpla
     @Override
     public void onFailed() {
         getView().hideSplashProgress();
-        getView().showToast(getString(R.string.sync_failed_msg));
+        getView().showToast(Utils.getString(R.string.sync_failed_msg));
 
         if (getDataManager().getIsLogged()) getView().openMainActivity();
         else getView().openLoginActivity();
-    }
-
-    @NonNull
-    private String getString(int id) {
-        return App.getContext().getResources().getString(id);
     }
 }

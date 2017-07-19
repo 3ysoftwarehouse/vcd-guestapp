@@ -1,5 +1,6 @@
 package br.com.a3ysoftwarehouse.vcdguest.ui.makeCall;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
@@ -20,7 +21,8 @@ import br.com.a3ysoftwarehouse.vcdguest.util.Utils;
  * Created by Iago Belo on 23/06/2017.
  */
 
-public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements IMakeCallPresenter,
+public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements
+        IMakeCallPresenter,
         NfcIdObservable.INfcTagIdObserver {
     // Constants
     private static final String TAG = "MakeCallPresenter";
@@ -50,8 +52,6 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
 
     @Override
     public void onResume() {
-        mCall = new Call();
-
         getView().setPassengersNotPresentsRcData(mPassengerList);
     }
 
@@ -81,16 +81,15 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
 
             isMakingCall = false;
 
-            saveCall();
-
-//            if (mCall.getItems().size() == 0) {
-//                getView().showToast(Utils.getString(R.string.empty_call_msg));
-//
-//            } else {
-//                saveCall();
-//            }
+            if (mCall.getItems().size() == 0) {
+                getView().showToast(Utils.getString(R.string.empty_call_msg));
+            } else {
+                saveCall();
+            }
 
         } else {
+            mCall = new Call();
+
             getView().setMakeCallSaveIcon();
 
             isMakingCall = true;
@@ -121,6 +120,8 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         Passenger passenger = searchPassengerByTag(tag);
 
         if (passenger != null) {
+            Log.i(TAG, passenger.toString());
+
             Item item = new Item();
             item.setPaxCod(passenger.getCOD());
             item.setTime(System.currentTimeMillis());
@@ -160,7 +161,7 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
         return null;
     }
 
-    private Passenger searchPassengerByCod(String cod) {
+    private Passenger searchPassengerByCod(@NonNull String cod) {
         for (Passenger p : mPassengerList) {
             if (p.getCOD() != null && p.getCOD().equals(cod)) return p;
         }
@@ -171,14 +172,10 @@ public class MakeCallPresenter extends BasePresenter<IMakeCallView> implements I
     private void saveCall() {
         mCall.setId(System.currentTimeMillis());
 
-        // Save the current call.
         getDataManager().saveCall(mCall);
 
         mPassengerList = new ArrayList<>(getDataManager().getPassenger());
         getView().setPassengersNotPresentsRcData(mPassengerList);
-
-        mCall = new Call();
-
         getView().showToast(Utils.getString(R.string.call_saved_msg));
     }
 }

@@ -9,11 +9,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- Uses Permission [END] -->
 
+
     <!-- Uses Feature -->
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true"/>
-
     <!-- Uses Feature [END] -->
 
     <!-- Application -->
@@ -54,6 +54,11 @@
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".ui.call.CallActivity"
+            android:parentActivityName=".ui.main.MainActivity">
+        </activity>
         <!-- Activity [END] -->
 
         <!-- Provider -->
